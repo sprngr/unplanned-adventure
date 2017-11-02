@@ -1,0 +1,12 @@
+[gd_scene format=1]
+
+[node name="Game" type="Node"]
+
+[node name="Player" type="KinematicBody2D" parent="."]
+
+input/pickable = false
+collision/layers = 1
+collision/mask = 1
+collision/margin = 0.08
+
+
