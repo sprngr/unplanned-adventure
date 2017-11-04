@@ -17,7 +17,7 @@ var positions = []
 var map
 var tiles_passable
 
-onready var Overworld = preload("res://maps/overworld.tscn")
+onready var Overworld = preload("res://maps/overworld/map_overworld.tscn")
 
 onready var Player = preload("res://player/player.tscn")
 
