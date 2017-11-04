@@ -24,12 +24,15 @@ onready var Player = preload("res://player/player.tscn")
 func _ready():
 	load_map(Overworld)
 
+	# Populate grid array with null values
 	for x in range(grid_size.x):
 		grid.append([])
 
 		for y in range(grid_size.y):
 			grid[x].append(null)
 
+	spawn_player()
+	
 	# Add some crap to the grid as well
 	# for n in range(5):
 	# 	var grid_pos = Vector2(randi() % int(grid_size.x) - 1, randi() % int(grid_size.y) - 1)
@@ -73,9 +76,7 @@ func load_map(scene):
 
 func spawn_player():
 	var player = Player.instance()
-	positions.append(Vector2(int(grid_size.x) / 2, int(grid_size.y) / 2))
-	player.set_pos(map_to_world(positions[0]) + half_tile_size)
-	grid[positions[0].x][positions[0].y] = PLAYER
+	player.set_pos(map_to_world(map.PLAYER_SPAWN) + half_tile_size)
 	add_child(player)
 	
 func update_child_pos(child_node):

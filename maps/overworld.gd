@@ -1,5 +1,6 @@
 extends TileMap
-# Provides the parent grid information about itself
+
+onready var grid = get_parent()
 
 # Tile mapping to enum
 enum TILES {
@@ -15,7 +16,7 @@ const GRID_SIZE = Vector2(60,40)
 const PASSABLE = [GRASS, DIRT]
 const ENCOUNTERABLE = [GRASS, DIRT]
 
-const PLAYER_SPAWN = [2,2]
+const PLAYER_SPAWN = Vector2(4,4)
 
 
 
