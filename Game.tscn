@@ -1,9 +1,7 @@
-[gd_scene load_steps=5 format=1]
+[gd_scene load_steps=3 format=1]
 
 [ext_resource path="res://grid/grid.gd" type="Script" id=1]
 [ext_resource path="res://grid/gridVisualizer.gd" type="Script" id=2]
-[ext_resource path="res://player/player.gd" type="Script" id=3]
-[ext_resource path="res://assets/player.png" type="Texture" id=4]
 
 [node name="Game" type="Node"]
 
@@ -11,7 +9,7 @@
 
 mode = 0
 tile_set = null
-cell/size = Vector2( 32, 32 )
+cell/size = Vector2( 16, 16 )
 cell/quadrant_size = 16
 cell/custom_transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 cell/half_offset = 2
@@ -32,17 +30,5 @@ __meta__ = {
 [node name="GridVisualizer" type="Node2D" parent="Grid"]
 
 script/script = ExtResource( 2 )
-
-[node name="Player" type="KinematicBody2D" parent="Grid"]
-
-input/pickable = false
-collision/layers = 1
-collision/mask = 1
-collision/margin = 0.08
-script/script = ExtResource( 3 )
-
-[node name="Sprite" type="Sprite" parent="Grid/Player"]
-
-texture = ExtResource( 4 )
 
 
