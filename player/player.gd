@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-const MAX_SPEED = 64
+const MAX_SPEED = 128
 
 var grid
 var type
@@ -11,6 +11,8 @@ var velocity = Vector2()
 var is_moving = false
 var target_pos = Vector2()
 var target_direction = Vector2()
+
+signal move
 
 func _ready():
 	grid = get_parent()
@@ -31,7 +33,7 @@ func _fixed_process(delta):
 
 	if not is_moving and direction != Vector2():
 		target_direction = direction
-		if grid.is_cell_vacant(get_pos(), target_direction):
+		if grid.is_cell_passable(get_pos(), target_direction):
 			target_pos = grid.update_child_pos(self)
 			is_moving = true
 	elif is_moving:
@@ -50,3 +52,4 @@ func _fixed_process(delta):
 			is_moving = false
 
 		move(velocity)
+		grid.update_camera()

@@ -12,7 +12,7 @@ enum TILES {
 const GRID_SIZE = Vector2(60,40)
 
 # Tile info
-const PASSABLE = [GRASS, DIRT]
+const IMPASSSABLE = [WATER]
 const ENCOUNTERABLE = [GRASS, DIRT]
 
 const PLAYER_SPAWN = [2,2]
