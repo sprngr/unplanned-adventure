@@ -7,7 +7,7 @@ enum ENTITY_TYPES {
 	ACTIONABLE
 }
 
-onready var window_size = OS.get_window_size()
+onready var window_size = Vector2(Globals.get("display/width"), Globals.get("display/height"))
 
 # Grid Info
 var tile_size = get_cell_size()
