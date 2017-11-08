@@ -54,11 +54,10 @@ func is_cell_passable(pos, direction):
 
 func warp_player(key):
 	var target_scene = map.warp_tiles[key]
-	globals.last_overworld_pos = get_player_world_pos()
-	print(globals.last_overworld_pos)
+	mapManager.load_map(target_scene)
 	globals.last_map = globals.current_map
 	globals.current_map = target_scene.target
-	get_node("/root/globals").load_new_map()
+	
 	
 func load_map():
 	# Load in map
