@@ -50,7 +50,6 @@ var warp_tiles = {
 	warp_0 = {
 		coords = Vector2(27,6),
 		exit = Vector2(14,18),
-		target = "shop/map_shop",
-		type = mapManager.WARP
+		target = "shop/map_shop"
 	}
 }
