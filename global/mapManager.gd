@@ -10,6 +10,9 @@ enum WARP_TYPES {
 # This script is intended to interface with globals.map_history to manage the
 # past and present maps loaded and at what positions the player entered from.
 
+# mapSchema
+# 
+
 func load_map(scene):
 	globals.set_scene("res://grid/grid.tscn")
 
