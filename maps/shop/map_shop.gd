@@ -16,19 +16,21 @@ const GRID_SIZE = Vector2(30,20)
 const IMPASSABLE = [BUSH]
 const ENCOUNTERABLE = []
 
-const PLAYER_SPAWN = Vector2(14,18)
-
+# Sets up 3 tiles to send player back to overworld
 var warp_tiles = {
-	warp_0 = {
+	gate_0 = {
 		coords = Vector2(13,19),
-		target = "overworld/map_overworld"
+		target = "overworld",
+		link = "town_0"
 	},
-	warp_1 = {
+	gate_1 = {
 		coords = Vector2(14,19),
-		target = "overworld/map_overworld"
+		target = "overworld",
+		link = "town_0"
 	},
-	warp_2 = {
+	gate_2 = {
 		coords = Vector2(15,19),
-		target = "overworld/map_overworld"
+		target = "overworld",
+		link = "town_0"
 	}
 }

@@ -22,10 +22,11 @@ var player_world_pos
 
 # Map Info
 var map
+var map_warps = {}
 var tiles_impassable
 
 func _ready():
-	load_map()
+	initialize()
 
 func is_cell_passable(pos, direction):
 	var grid_pos = world_to_map(pos) + direction
@@ -44,7 +45,7 @@ func is_cell_passable(pos, direction):
 					return true
 				else:
 					var grid_item = grid[grid_pos.x][grid_pos.y]
-					if grid_item.type == WARP :
+					if grid_item.type == WARP and globals.get("state") != "WARPING":
 						warp_player(grid_item.key)
 					else:
 						return false
@@ -54,16 +55,22 @@ func is_cell_passable(pos, direction):
 
 func warp_player(key):
 	var target_scene = map.warp_tiles[key]
+	# Set game state to "player is warping"
+	# This should kill all momentum until screen has loaded
+	# We don't want to update this until they press forward
+	globals.store("state", "WARPING")
+	
+	# Load in new map data pulled from child scene
 	mapManager.load_map(target_scene)
-	globals.last_map = globals.current_map
-	globals.current_map = target_scene.target
 	
-	
-func load_map():
+# initialize
+# This sets up all the data based on the current game state
+func initialize():
 	# Load in map
-	var scene = ResourceLoader.load("res://maps/" + globals.current_map +".tscn")
+	var scene = ResourceLoader.load(mapManager.get_map_resource())
 	map = scene.instance()
 	map.set_pos(Vector2(0,0))
+	
 	# Add to scene
 	add_child(map)
 	
@@ -80,26 +87,31 @@ func load_map():
 	tiles_impassable = map.IMPASSABLE
 	
 	var warp_tiles = map.warp_tiles
-	for i in range(warp_tiles.size()):
-		var key = "warp_" + str(i)
+	for key in warp_tiles:
 		var coords = warp_tiles[key].coords
-		grid[coords.x][coords.y] = {
-			type = WARP,
-			key = key
+		
+		# Store a copy of the warp tiles coords by ID for reference when spawning player
+		map_warps[key] = {
+			coords = Vector2(coords.x, coords.y)
 		}
+		
+		# Store references to map warp tiles
+		if warp_tiles[key].target != null:
+			grid[coords.x][coords.y] = {
+				type = WARP,
+				key = key
+			}
 	
 	spawn_player()
 
 func spawn_player():
+	var spawn_pos = mapManager.get_spawn()
 	player = Player.instance()
-	player_world_pos = map_to_world(map.PLAYER_SPAWN) + half_tile_size
-	if globals.current_map == "map/map_overworld" and globals.last_overworld_pos:
-		print("back on overworld")
-		player.set_pos(globals.last_overworld_pos)
-	else:
-		player.set_pos(player_world_pos)
+	player_world_pos = map_to_world(map_warps[spawn_pos].coords) + half_tile_size
+	player.set_pos(player_world_pos)
 	add_child(player)
 	update_camera()
+	globals.store("state", "ACTIVE")
 	
 func update_child_pos(child_node):
 	var grid_pos = world_to_map(child_node.get_pos())

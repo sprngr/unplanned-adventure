@@ -44,12 +44,15 @@ const IMPASSABLE = [
 	]
 const ENCOUNTERABLE = [GRASS, DIRT]
 
-const PLAYER_SPAWN = Vector2(15,9)
-
 var warp_tiles = {
-	warp_0 = {
+	game_start = {
+		coords = Vector2(15,9),
+		link = null,
+		target = null
+	},
+	town_0 = {
 		coords = Vector2(27,6),
-		exit = Vector2(14,18),
-		target = "shop/map_shop"
-	}
+		link = "gate_1",
+		target = "shop"
+	} 
 }
