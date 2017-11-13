@@ -3,9 +3,9 @@
 [ext_resource path="res://grid/grid.gd" type="Script" id=1]
 [ext_resource path="res://grid/gridVisualizer.gd" type="Script" id=2]
 
-[node name="Game" type="Node"]
+[node name="game" type="Node"]
 
-[node name="Grid" type="TileMap" parent="."]
+[node name="grid" type="TileMap" parent="."]
 
 mode = 0
 tile_set = null
@@ -27,7 +27,7 @@ __meta__ = {
 "_editor_clip_": 0
 }
 
-[node name="GridVisualizer" type="Node2D" parent="Grid"]
+[node name="gridVisualizer" type="Node2D" parent="grid"]
 
 script/script = ExtResource( 2 )
 

@@ -9,20 +9,111 @@
 transform/pos = Vector2( 16, 16 )
 texture = ExtResource( 1 )
 region = true
-region_rect = Rect2( 0, 0, 16, 16 )
+region_rect = Rect2( 16, 0, 16, 16 )
 
 [node name="dirt" type="Sprite" parent="."]
 
 transform/pos = Vector2( 48, 16 )
 texture = ExtResource( 1 )
 region = true
-region_rect = Rect2( 32, 512, 16, 16 )
+region_rect = Rect2( 32, 0, 16, 16 )
 
-[node name="water" type="Sprite" parent="."]
+[node name="bush" type="Sprite" parent="."]
 
 transform/pos = Vector2( 80, 16 )
 texture = ExtResource( 1 )
 region = true
+region_rect = Rect2( 48, 0, 16, 16 )
+
+[node name="water" type="Sprite" parent="."]
+
+transform/pos = Vector2( 48, 80 )
+texture = ExtResource( 1 )
+region = true
+region_rect = Rect2( 16, 32, 16, 16 )
+
+[node name="coast-tl" type="Sprite" parent="."]
+
+transform/pos = Vector2( 16, 48 )
+texture = ExtResource( 1 )
+region = true
+region_rect = Rect2( 0, 16, 16, 16 )
+
+[node name="coast-tm" type="Sprite" parent="."]
+
+transform/pos = Vector2( 48, 48 )
+texture = ExtResource( 1 )
+region = true
 region_rect = Rect2( 16, 16, 16, 16 )
+
+[node name="coast-tr" type="Sprite" parent="."]
+
+transform/pos = Vector2( 80, 48 )
+texture = ExtResource( 1 )
+region = true
+region_rect = Rect2( 32, 16, 16, 16 )
+
+[node name="coast-ml" type="Sprite" parent="."]
+
+transform/pos = Vector2( 16, 80 )
+texture = ExtResource( 1 )
+region = true
+region_rect = Rect2( 0, 32, 16, 16 )
+
+[node name="coast-mr" type="Sprite" parent="."]
+
+transform/pos = Vector2( 80, 80 )
+texture = ExtResource( 1 )
+region = true
+region_rect = Rect2( 32, 32, 16, 16 )
+
+[node name="coast-bl" type="Sprite" parent="."]
+
+transform/pos = Vector2( 16, 112 )
+texture = ExtResource( 1 )
+region = true
+region_rect = Rect2( 0, 48, 16, 16 )
+
+[node name="coast-bm" type="Sprite" parent="."]
+
+transform/pos = Vector2( 48, 112 )
+texture = ExtResource( 1 )
+region = true
+region_rect = Rect2( 16, 48, 16, 16 )
+
+[node name="coast-br" type="Sprite" parent="."]
+
+transform/pos = Vector2( 80, 112 )
+texture = ExtResource( 1 )
+region = true
+region_rect = Rect2( 32, 48, 16, 16 )
+
+[node name="coast-itl" type="Sprite" parent="."]
+
+transform/pos = Vector2( 112, 48 )
+texture = ExtResource( 1 )
+region = true
+region_rect = Rect2( 48, 16, 16, 16 )
+
+[node name="coast-itr" type="Sprite" parent="."]
+
+transform/pos = Vector2( 144, 48 )
+texture = ExtResource( 1 )
+region = true
+region_rect = Rect2( 64, 16, 16, 16 )
+
+[node name="coast-ibl" type="Sprite" parent="."]
+
+transform/pos = Vector2( 112, 80 )
+texture = ExtResource( 1 )
+region = true
+region_rect = Rect2( 48, 32, 16, 16 )
+
+[node name="coast-ibr" type="Sprite" parent="."]
+
+transform/pos = Vector2( 144, 80 )
+texture = ExtResource( 1 )
+region = true
+region_rect = Rect2( 64, 32, 16, 16 )
 
 
