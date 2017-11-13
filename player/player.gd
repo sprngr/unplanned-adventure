@@ -22,22 +22,26 @@ func _ready():
 func _fixed_process(delta):
 	direction = Vector2()
 	
-	if globals.get("state") == "WARPING":
+	if globals.get("state") != "GAME_IS_PLAYING":
 		is_moving = false
 		speed = 0
 		velocity = Vector2()
+		globals.store("player_direction", Vector2())
 	else:
 		if Input.is_action_pressed("move_up"):
 			direction.y = -1
+			
 		elif Input.is_action_pressed("move_down"):
 			direction.y = 1
 		if Input.is_action_pressed("move_right"):
 			direction.x = 1
 		elif Input.is_action_pressed("move_left"):
 			direction.x = -1
+			
+		globals.store("player_direction", direction)
 	
-		if not is_moving and direction != Vector2():
-			target_direction = direction
+		if not is_moving and globals.get("player_direction") != Vector2():
+			target_direction = globals.get("player_direction")
 			if grid.is_cell_passable(get_pos(), target_direction):
 				target_pos = grid.update_child_pos(self)
 				is_moving = true

@@ -45,7 +45,7 @@ func is_cell_passable(pos, direction):
 					return true
 				else:
 					var grid_item = grid[grid_pos.x][grid_pos.y]
-					if grid_item.type == WARP and globals.get("state") != "WARPING":
+					if grid_item.type == WARP:
 						warp_player(grid_item.key)
 					else:
 						return false
@@ -110,11 +110,15 @@ func spawn_player():
 	player_world_pos = map_to_world(map_warps[spawn_pos].coords) + half_tile_size
 	player.set_pos(player_world_pos)
 	add_child(player)
+	
 	update_camera()
-	globals.store("state", "ACTIVE")
+	globals.store("state", "GAME_IS_PLAYING")
 	
 func update_child_pos(child_node):
 	var grid_pos = world_to_map(child_node.get_pos())
+	if (grid[grid_pos.x][grid_pos.y] != null):
+		print("child_pos", grid[grid_pos.x][grid_pos.y])
+	
 	grid[grid_pos.x][grid_pos.y] = null
 
 	var new_grid_pos = grid_pos + child_node.direction
