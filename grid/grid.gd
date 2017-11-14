@@ -14,6 +14,7 @@ var tile_size = get_cell_size()
 var half_tile_size = tile_size / 2
 var grid_size = Vector2()
 var grid = []
+var grid_warps
 
 # Player
 onready var Player = preload("res://player/player.tscn")
@@ -34,21 +35,17 @@ func is_cell_passable(pos, direction):
 	
 	# Check if cell is passable (grass, dirt, etc)
 	var is_passable = !tiles_impassable.has(tile)
-	
-	print("Tile:", tile, is_passable)
 
 	# If yes, check to see if anything is currently at that pos
 	if is_passable:
 		if grid_pos.x < grid_size.x and grid_pos.x >= 0:
 			if grid_pos.y < grid_size.y and grid_pos.y >= 0:
+				if grid_warps[grid_pos.x][grid_pos.y] != null and grid_warps[grid_pos.x][grid_pos.y] != 0:
+					warp_player(grid_warps[grid_pos.x][grid_pos.y].key)
+					return true
+					
 				if grid[grid_pos.x][grid_pos.y] == null:
 					return true
-				else:
-					var grid_item = grid[grid_pos.x][grid_pos.y]
-					if grid_item.type == WARP:
-						warp_player(grid_item.key)
-					else:
-						return false
 		return false
 	else:
 		return false
@@ -84,6 +81,9 @@ func initialize():
 		for y in range(grid_size.y):
 			grid[x].append(null)
 			
+	# Clone grid for grid_warps array
+	grid_warps = [] + grid
+			
 	tiles_impassable = map.IMPASSABLE
 	
 	var warp_tiles = map.warp_tiles
@@ -97,7 +97,7 @@ func initialize():
 		
 		# Store references to map warp tiles
 		if warp_tiles[key].target != null:
-			grid[coords.x][coords.y] = {
+			grid_warps[coords.x][coords.y] = {
 				type = WARP,
 				key = key
 			}
@@ -116,10 +116,9 @@ func spawn_player():
 	
 func update_child_pos(child_node):
 	var grid_pos = world_to_map(child_node.get_pos())
-	if (grid[grid_pos.x][grid_pos.y] != null):
-		print("child_pos", grid[grid_pos.x][grid_pos.y])
 	
-	grid[grid_pos.x][grid_pos.y] = null
+	if (grid_warps[grid_pos.x][grid_pos.y] == null or grid_warps[grid_pos.x][grid_pos.y] == 0):
+		grid[grid_pos.x][grid_pos.y] = null
 
 	var new_grid_pos = grid_pos + child_node.direction
 	grid[new_grid_pos.x][new_grid_pos.y] = child_node.type
