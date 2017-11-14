@@ -28,6 +28,7 @@ var tiles_impassable
 
 func _ready():
 	initialize()
+	globals.store("state", "GAME_IS_PLAYING")
 
 func is_cell_passable(pos, direction):
 	var grid_pos = world_to_map(pos) + direction
@@ -110,9 +111,7 @@ func spawn_player():
 	player_world_pos = map_to_world(map_warps[spawn_pos].coords) + half_tile_size
 	player.set_pos(player_world_pos)
 	add_child(player)
-	
 	update_camera()
-	globals.store("state", "GAME_IS_PLAYING")
 	
 func update_child_pos(child_node):
 	var grid_pos = world_to_map(child_node.get_pos())
