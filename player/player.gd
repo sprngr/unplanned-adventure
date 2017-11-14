@@ -30,7 +30,6 @@ func _fixed_process(delta):
 	else:
 		if Input.is_action_pressed("move_up"):
 			direction.y = -1
-			
 		elif Input.is_action_pressed("move_down"):
 			direction.y = 1
 		if Input.is_action_pressed("move_right"):
