@@ -36,8 +36,8 @@ size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 50.0
 margin/top = 60.0
-margin/right = 90.0
-margin/bottom = 90.0
+margin/right = 98.0
+margin/bottom = 108.0
 texture = ExtResource( 3 )
 stretch_mode = 0
 
@@ -50,26 +50,11 @@ size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 240.0
 margin/right = 480.0
-margin/bottom = 310.0
+margin/bottom = 320.0
 texture = ExtResource( 2 )
 patch_margin/left = 16
 patch_margin/top = 16
 patch_margin/right = 16
 patch_margin/bottom = 16
-
-[node name="RichTextLabel" type="RichTextLabel" parent="Event Dialogue"]
-
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 10.0
-margin/top = 10.0
-margin/right = 470.0
-margin/bottom = 60.0
-bbcode/enabled = false
-bbcode/bbcode = ""
-visible_characters = -1
-percent_visible = 1.0
 
 
