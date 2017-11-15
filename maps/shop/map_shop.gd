@@ -19,17 +19,7 @@ const ENCOUNTERABLE = []
 # Sets up 3 tiles to send player back to overworld
 var warp_tiles = {
 	gate_0 = {
-		coords = Vector2(13,19),
-		target = null,
-		link = null
-	},
-	gate_1 = {
 		coords = Vector2(14,19),
-		target = null,
-		link = null
-	},
-	gate_2 = {
-		coords = Vector2(15,19),
 		target = null,
 		link = null
 	},

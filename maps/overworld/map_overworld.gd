@@ -42,7 +42,7 @@ const IMPASSABLE = [
 	COASTA,
 	COASTB
 	]
-const ENCOUNTERABLE = [GRASS, DIRT]
+const ENCOUNTERABLE = [GRASS]
 
 var warp_tiles = {
 	game_start = {
@@ -52,7 +52,7 @@ var warp_tiles = {
 	},
 	town_0 = {
 		coords = Vector2(27,6),
-		link = "gate_1",
+		link = "gate_0",
 		target = "shop"
 	} 
 }

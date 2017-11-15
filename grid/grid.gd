@@ -21,10 +21,14 @@ onready var Player = preload("res://player/player.tscn")
 var player
 var player_world_pos
 
+# Random Events
+var event
+
 # Map Info
 var map
 var map_warps = {}
 var tiles_impassable
+var tiles_encounterable
 
 func _ready():
 	initialize()
@@ -36,6 +40,7 @@ func is_cell_passable(pos, direction):
 	
 	# Check if cell is passable (grass, dirt, etc)
 	var is_passable = !tiles_impassable.has(tile)
+	var is_encounterable = tiles_encounterable.has(tile)
 
 	# If yes, check to see if anything is currently at that pos
 	if is_passable:
@@ -43,20 +48,35 @@ func is_cell_passable(pos, direction):
 			if grid_pos.y < grid_size.y and grid_pos.y >= 0:
 				if grid_warps[grid_pos.x][grid_pos.y] != null and grid_warps[grid_pos.x][grid_pos.y] != 0:
 					warp_player(grid_warps[grid_pos.x][grid_pos.y].key)
-					return true
+					return false
 					
 				if grid[grid_pos.x][grid_pos.y] == null:
+					if is_encounterable:
+						var random = randi() % 11 + 1
+						if random >= 8:
+							random_encounter()
+							return false
 					return true
-		return false
-	else:
-		return false
 
+	return false
+
+func random_encounter():
+	# Load in event
+	var scene = ResourceLoader.load("res://events/event.tscn")
+	event = scene.instance()
+	event.set_pos(Vector2(0,0))
+	
+	# Add to scene
+	add_child(event)
+	globals.store("state", "GAME_EVENT")
+	pass
+	
 func warp_player(key):
 	var target_scene = map.warp_tiles[key]
 	# Set game state to "player is warping"
 	# This should kill all momentum until screen has loaded
 	# We don't want to update this until they press forward
-	globals.store("state", "WARPING")
+	globals.store("state", "GAME_WARPING")
 	
 	# Load in new map data pulled from child scene
 	mapManager.load_map(target_scene)
@@ -86,6 +106,7 @@ func initialize():
 	grid_warps = [] + grid
 			
 	tiles_impassable = map.IMPASSABLE
+	tiles_encounterable = map.ENCOUNTERABLE
 	
 	var warp_tiles = map.warp_tiles
 	for key in warp_tiles:

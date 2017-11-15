@@ -26,7 +26,6 @@ func _fixed_process(delta):
 		is_moving = false
 		speed = 0
 		velocity = Vector2()
-		globals.store("player_direction", Vector2())
 	else:
 		if Input.is_action_pressed("move_up"):
 			direction.y = -1
