@@ -27,7 +27,8 @@ var event
 # Map Info
 var map
 var map_warps = {}
-var tiles_impassable
+var tileset
+var tiles_passable
 var tiles_encounterable
 
 func _ready():
@@ -37,10 +38,11 @@ func _ready():
 func is_cell_passable(pos, direction):
 	var grid_pos = world_to_map(pos) + direction
 	var tile = map.get_cellv(grid_pos)
+	var target_tile = tileset.tile_get_name(tile)
 	
 	# Check if cell is passable (grass, dirt, etc)
-	var is_passable = !tiles_impassable.has(tile)
-	var is_encounterable = tiles_encounterable.has(tile)
+	var is_passable = tiles_passable.has(target_tile)
+	var is_encounterable = tiles_encounterable.has(target_tile)
 
 	# If yes, check to see if anything is currently at that pos
 	if is_passable:
@@ -92,6 +94,9 @@ func initialize():
 	# Add to scene
 	add_child(map)
 	
+	# Store tileset
+	tileset = map.get_tileset()
+	
 	# Populate needed values from child map
 	grid_size = map.GRID_SIZE
 	
@@ -105,8 +110,8 @@ func initialize():
 	# Clone grid for grid_warps array
 	grid_warps = [] + grid
 			
-	tiles_impassable = map.IMPASSABLE
-	tiles_encounterable = map.ENCOUNTERABLE
+	tiles_passable = map.passable
+	tiles_encounterable = map.encounterable
 	
 	var warp_tiles = map.warp_tiles
 	for key in warp_tiles:

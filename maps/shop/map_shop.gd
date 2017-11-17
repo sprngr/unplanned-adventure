@@ -1,21 +1,13 @@
 extends TileMap
 
-onready var grid = get_parent()
-
-# Tile mapping to enum
-enum TILES {
-	GRASS,
-	ROAD,
-	BUSH
-}
-
 # Map grid size
 const GRID_SIZE = Vector2(30,21)
 
 # Tile info
-const IMPASSABLE = [BUSH]
-const ENCOUNTERABLE = []
+var passable = ["grass", "dirt"]
+var encounterable = []
 
+# Warp Info
 # Sets up 3 tiles to send player back to overworld
 var warp_tiles = {
 	gate_0 = {
