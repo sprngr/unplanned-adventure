@@ -50,10 +50,10 @@ func is_cell_passable(pos, direction):
 					warp_player(grid_warps[grid_pos.x][grid_pos.y].key)
 					return false
 					
-				if grid[grid_pos.x][grid_pos.y] == null:
+				if grid_warps[grid_pos.x][grid_pos.y] == null && grid[grid_pos.x][grid_pos.y] == null:
 					if is_encounterable:
 						var random = randi() % 11 + 1
-						if random >= 8:
+						if random == 10:
 							random_encounter()
 							return false
 					return true
@@ -64,7 +64,7 @@ func random_encounter():
 	# Load in event
 	var scene = ResourceLoader.load("res://events/event.tscn")
 	event = scene.instance()
-	event.set_pos(Vector2(0,0))
+	event.set_pos(globals.get("viewport").abs())
 	
 	# Add to scene
 	add_child(event)
@@ -165,4 +165,6 @@ func update_camera():
 		player_world_pos = new_player_grid_pos
 		transform = get_viewport().get_canvas_transform()
 		transform[2] = -player_world_pos * window_size
+		print(transform)
+		globals.store("viewport", transform[2])
 		get_viewport().set_canvas_transform(transform)

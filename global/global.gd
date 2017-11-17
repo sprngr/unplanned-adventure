@@ -12,6 +12,7 @@ func get(key):
 func initialize():
 	# TODO Load in save data first before loading default values
 	game_data.player_direction = Vector2()
+	game_data.viewport = Vector2()
 	game_data.state = "GAME_PLAYING"
 	game_data.map = {
 		id = "overworld",
