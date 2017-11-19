@@ -4,6 +4,10 @@ var current_scene = null
 var game_data = {}
 
 func _ready():
+	# Set a new random seed
+	randomize()
+	
+	# Set current scene
 	current_scene = get_tree().get_root().get_child(get_tree().get_root().get_child_count() - 1)
 
 func get(key):

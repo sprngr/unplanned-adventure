@@ -20,3 +20,11 @@ var warp_tiles = {
 		target = "shop"
 	} 
 }
+
+var encounters = {
+	monster_0 = {
+		type: "battle",
+		level: 1,
+		entity: "slime",
+	}
+}
