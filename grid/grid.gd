@@ -54,8 +54,8 @@ func is_cell_passable(pos, direction):
 					
 				if grid_warps[grid_pos.x][grid_pos.y] == null && grid[grid_pos.x][grid_pos.y] == null:
 					if is_encounterable:
-						var random = randi() % 11 + 1
-						if random == 10:
+						var random = randi() % 100
+						if random <= 24:
 							random_encounter()
 							return false
 					return true

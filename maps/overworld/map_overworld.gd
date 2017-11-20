@@ -18,14 +18,13 @@ var warp_tiles = {
 		coords = Vector2(27,6),
 		link = "gate_0",
 		target = "shop"
-	} 
+	}
 }
 
-# Event info
-var random_events = {
-	monsters = [{
-		type = "slime",
-		level = 1,
-		rate = 1
-	}]
+var encounters = {
+	monster_0 = {
+		type: "battle",
+		level: 1,
+		entity: "slime",
+	}
 }

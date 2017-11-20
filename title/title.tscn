@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=1]
+[gd_scene load_steps=4 format=1]
 
 [ext_resource path="res://title/title.gd" type="Script" id=1]
 [ext_resource path="res://assets/title_screen.png" type="Texture" id=2]
+[ext_resource path="res://assets/font_32.fnt" type="BitmapFont" id=3]
 
 [node name="title" type="Node"]
 
@@ -15,9 +16,41 @@ size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 0.0
-margin/right = 40.0
-margin/bottom = 40.0
+margin/right = 480.0
+margin/bottom = 320.0
 texture = ExtResource( 2 )
 stretch_mode = 0
+
+[node name="text_continue" type="RichTextLabel" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 224.0
+margin/right = 480.0
+margin/bottom = 256.0
+custom_fonts/normal_font = ExtResource( 3 )
+bbcode/enabled = true
+bbcode/bbcode = "[center]Continue[/center]"
+visible_characters = -1
+percent_visible = 1.0
+
+[node name="text_new_game" type="RichTextLabel" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 256.0
+margin/right = 480.0
+margin/bottom = 288.0
+custom_fonts/normal_font = ExtResource( 3 )
+bbcode/enabled = true
+bbcode/bbcode = "[center]New Game[/center]"
+visible_characters = -1
+percent_visible = 1.0
 
 
