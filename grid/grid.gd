@@ -66,12 +66,11 @@ func random_encounter():
 	# Load in event
 	var scene = ResourceLoader.load("res://events/event.tscn")
 	event = scene.instance()
-	event.set_pos(globals.get("viewport").abs())
+	event.set_pos(globals.get("viewport"))
 	
 	# Add to scene
 	add_child(event)
 	globals.store("state", "GAME_EVENT")
-	pass
 	
 func warp_player(key):
 	var target_scene = map.warp_tiles[key]
@@ -170,6 +169,5 @@ func update_camera():
 		player_world_pos = new_player_grid_pos
 		transform = get_viewport().get_canvas_transform()
 		transform[2] = -player_world_pos * window_size
-		print(transform)
-		globals.store("viewport", transform[2])
+		globals.store("viewport", transform[2].abs())
 		get_viewport().set_canvas_transform(transform)

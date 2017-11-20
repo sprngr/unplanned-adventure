@@ -20,3 +20,12 @@ var warp_tiles = {
 		target = "shop"
 	} 
 }
+
+# Event info
+var random_events = {
+	monsters = [{
+		type = "slime",
+		level = 1,
+		rate = 1
+	}]
+}
