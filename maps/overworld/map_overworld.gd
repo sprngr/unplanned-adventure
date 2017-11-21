@@ -21,10 +21,10 @@ var warp_tiles = {
 	} 
 }
 
-var encounters = {
-	monster_0 = {
-		type: "battle",
-		level: 1,
-		entity: "slime",
+var encounters = [
+	{
+		type = "battle",
+		entity = "slime",
+		level = 1
 	}
-}
+]

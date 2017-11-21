@@ -17,6 +17,7 @@ func initialize():
 	# TODO Load in save data first before loading default values
 	
 	game_data = {
+		event = {},
 		player_direction = Vector2(),
 		player_position = Vector2(),
 		viewport = Vector2(),
@@ -54,7 +55,7 @@ func save_game():
 	savegame.open("user://unplanned_save.save", File.WRITE)
 	savegame.store_line(prepare_save().to_json())
 	savegame.close()
-
+	
 func set_scene(scene):
 	var new_scene = ResourceLoader.load(scene)
 	current_scene.queue_free()

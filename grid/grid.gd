@@ -33,6 +33,8 @@ var tiles_encounterable
 
 func _ready():
 	initialize()
+	spawn_player()
+	update_camera()
 	globals.store("state", "GAME_IS_PLAYING")
 
 func is_cell_passable(pos, direction):
@@ -63,6 +65,10 @@ func is_cell_passable(pos, direction):
 	return false
 
 func random_encounter():
+	var encounters = map.encounters
+	var new_event = encounters[randi() % encounters.size()]
+	globals.store("event", new_event)
+	
 	# Load in event
 	var scene = ResourceLoader.load("res://events/event.tscn")
 	event = scene.instance()
@@ -70,6 +76,7 @@ func random_encounter():
 	
 	# Add to scene
 	add_child(event)
+	
 	globals.store("state", "GAME_EVENT")
 	
 func warp_player(key):
@@ -128,7 +135,7 @@ func initialize():
 				key = key
 			}
 	
-	spawn_player()
+	
 
 func spawn_player():
 	var spawn_pos = mapManager.get_spawn()
@@ -136,7 +143,6 @@ func spawn_player():
 	player_world_pos = map_to_world(map_warps[spawn_pos].coords) + half_tile_size
 	player.set_pos(player_world_pos)
 	add_child(player)
-	update_camera()
 	
 func update_child_pos(child_node):
 	var grid_pos = world_to_map(child_node.get_pos())
