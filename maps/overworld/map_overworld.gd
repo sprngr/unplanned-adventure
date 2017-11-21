@@ -18,7 +18,7 @@ var warp_tiles = {
 		coords = Vector2(27,6),
 		link = "gate_0",
 		target = "shop"
-	} 
+	}
 }
 
 var encounters = [
