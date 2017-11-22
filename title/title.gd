@@ -17,11 +17,9 @@ func _ready():
 	set_process_input(true)
 	
 	# Check if a save exists, default to continue; otherwise hide it and select New Game.
-	save_file_exists = !File.new().file_exists("user://unplanned_save.save")
+	save_file_exists = File.new().file_exists("user://unplanned_save.save")
 	
 	if !save_file_exists:
-		#menu_continue.hide() # Not sure what I like more...
-		cursor_pos = 1
 		select_menu_item(menu_new_game)
 	else:
 		select_menu_item(menu_continue)
