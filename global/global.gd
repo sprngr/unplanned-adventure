@@ -18,6 +18,8 @@ func initialize():
 	
 	game_data = {
 		event = {},
+		player_data = {
+		},
 		player_direction = Vector2(),
 		player_position = Vector2(),
 		viewport = Vector2(),
