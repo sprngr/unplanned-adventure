@@ -23,8 +23,9 @@ var warp_tiles = {
 
 var encounters = [
 	{
-		type = "battle",
 		entity = "slime",
-		level = 1
+		field = "grass",
+		level = 1,
+		type = "battle"
 	}
 ]

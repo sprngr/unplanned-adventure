@@ -2,7 +2,7 @@
 
 [ext_resource path="res://events/event.gd" type="Script" id=1]
 [ext_resource path="res://assets/text_frame.png" type="Texture" id=2]
-[ext_resource path="res://assets/monsters/slime.png" type="Texture" id=3]
+[ext_resource path="res://events/entity_frame.gd" type="Script" id=3]
 [ext_resource path="res://assets/font_32.fnt" type="BitmapFont" id=4]
 
 [node name="event" type="Node2D"]
@@ -11,6 +11,7 @@ script/script = ExtResource( 1 )
 
 [node name="entity_frame" type="Patch9Frame" parent="."]
 
+visibility/visible = false
 anchor/left = 3
 anchor/top = 1
 anchor/right = 3
@@ -28,6 +29,19 @@ patch_margin/left = 16
 patch_margin/top = 16
 patch_margin/right = 16
 patch_margin/bottom = 16
+script/script = ExtResource( 3 )
+
+[node name="entity_background" type="TextureFrame" parent="entity_frame"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 128.0
+margin/bottom = 112.0
+stretch_mode = 0
 
 [node name="entity_sprite" type="TextureFrame" parent="entity_frame"]
 
@@ -35,11 +49,10 @@ focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 41.0
+margin/left = 40.0
 margin/top = 48.0
-margin/right = 89.0
+margin/right = 88.0
 margin/bottom = 96.0
-texture = ExtResource( 3 )
 stretch_mode = 0
 
 [node name="event_textbox" type="Patch9Frame" parent="."]
@@ -71,13 +84,12 @@ margin/bottom = 64.0
 custom_fonts/normal_font = ExtResource( 4 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 bbcode/enabled = true
-bbcode/bbcode = "A Slime attacked!"
+bbcode/bbcode = ""
 visible_characters = -1
 percent_visible = 1.0
 
 [node name="battle_textbox" type="Patch9Frame" parent="."]
 
-visibility/visible = false
 focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -91,6 +103,23 @@ patch_margin/left = 16
 patch_margin/top = 16
 patch_margin/right = 16
 patch_margin/bottom = 16
+
+[node name="battle_dialogue" type="RichTextLabel" parent="battle_textbox"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 16.0
+margin/top = 16.0
+margin/right = 464.0
+margin/bottom = 64.0
+custom_fonts/normal_font = ExtResource( 4 )
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+bbcode/enabled = true
+bbcode/bbcode = ""
+visible_characters = -1
+percent_visible = 1.0
 
 [node name="battle_action" type="RichTextLabel" parent="battle_textbox"]
 
@@ -111,6 +140,7 @@ percent_visible = 1.0
 
 [node name="battle_inventory" type="RichTextLabel" parent="battle_textbox"]
 
+visibility/visible = false
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -133,13 +163,43 @@ focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 368.0
-margin/top = 48.0
+margin/top = 16.0
 margin/right = 464.0
-margin/bottom = 80.0
+margin/bottom = 48.0
 custom_fonts/normal_font = ExtResource( 4 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 bbcode/enabled = true
 bbcode/bbcode = "Run Away"
+visible_characters = -1
+percent_visible = 1.0
+
+[node name="player_stats" type="RichTextLabel" parent="battle_textbox"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 40.0
+margin/bottom = 40.0
+bbcode/enabled = false
+bbcode/bbcode = ""
+visible_characters = -1
+percent_visible = 1.0
+
+[node name="enemy_stats" type="RichTextLabel" parent="battle_textbox"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 40.0
+margin/bottom = 40.0
+bbcode/enabled = false
+bbcode/bbcode = ""
 visible_characters = -1
 percent_visible = 1.0
 
