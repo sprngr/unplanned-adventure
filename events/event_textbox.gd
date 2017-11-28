@@ -11,3 +11,7 @@ func _ready():
 	
 func setup():
 	pass
+
+
+func _on_text_timer_timeout():
+	pass # replace with function body

@@ -216,4 +216,8 @@ wait_time = 1.0
 one_shot = false
 autostart = false
 
+[connection signal="timeout" from="text_timer" to="event_textbox" method="_on_text_timer_timeout"]
+
+[connection signal="timeout" from="text_timer" to="battle_textbox" method="_on_text_timer_timeout"]
+
 
