@@ -31,14 +31,7 @@ func _ready():
 	#event_textbox.setup()
 	
 	# Setup battle controls if needed
-	#battle_textbox.setup()
-
-	set_process_input(true)
-
-func _input(event):
-	if event.is_action_pressed("ui_accept"):
-		globals.store("state", "GAME_IS_PLAYING")
-		self.queue_free()
+	battle_textbox.setup()
 
 func handle_event():
 	event_data.info = globals.get("event")

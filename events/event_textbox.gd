@@ -8,9 +8,6 @@ func _ready():
 	# Called every time the node is added to the scene.
 	# Initialization here
 	pass
-	
-func setup():
-	pass
 
 
 func _on_text_timer_timeout():
