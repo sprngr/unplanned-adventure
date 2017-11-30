@@ -69,11 +69,31 @@ func _input(evt):
 			if (battle_state == BATTLE_STATES.TEXT):
 				combat_step = (combat_step + 1) % 2
 			
-			battle_state = BATTLE_STATES.COMBAT
-			menu_action.set_bbcode(get_menu_action_text())
-			select_menu_item(menu_action)
+			if !is_combat_over():
+				battle_state = BATTLE_STATES.COMBAT
+				menu_action.set_bbcode(get_menu_action_text())
+				select_menu_item(menu_action)
+			else:
+				battle_state = BATTLE_STATES.END
+				end_combat()
+				
+	if battle_state == BATTLE_STATES.END && is_text_complete():
+		if evt.is_action_pressed("ui_accept"):
+			# Clear event data, lets move on
+			globals.store("event", {})
+			globals.store("state", "GAME_IS_PLAYING")
+			event.queue_free()
 			
-
+func end_combat():
+	# Determine who just lost
+	if enemy_stamina <= 0:
+		# You won
+		set_dialogue("*Victory fanfare plays*")
+		# Determine XP gain
+	else: 
+		# You lost
+		set_dialogue("You died")
+	
 func run_menu_item(menu_item):
 	# Run combat with player and enemy actions
 	# Math time!
@@ -112,10 +132,16 @@ func combat_phase():
 	# Update labels
 	update_labels()
 	
+	var display_text
+	if (damage == 0):
+		display_text = "missed!"
+	else: 
+		display_text = "hit for " + String(damage) + " damage!"
+	
 	# Run display text
-	set_dialogue(attacker_label + " hit for " + String(damage) + " damage!")
+	set_dialogue(attacker_label + " " + display_text)
 
-func check_combat():
+func is_combat_over():
 	return enemy_stamina <= 0 || player_stamina <= 0
 	
 func roll_attack(stats):
@@ -171,10 +197,9 @@ func _on_text_timer_timeout():
 		battle_dialogue.set_visible_characters(battle_dialogue.get_visible_characters() + 1)
 	
 func set_dialogue(text):
-	if (battle_state != BATTLE_STATES.INTRO):
+	if (battle_state == BATTLE_STATES.COMBAT):
 		battle_state = BATTLE_STATES.TEXT
-	
-	print("battle?",battle_state)
+
 	battle_dialogue.set_bbcode(text)
 	battle_dialogue.set_visible_characters(0)
 
