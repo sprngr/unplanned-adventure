@@ -4,6 +4,10 @@ var current_scene = null
 var game_data = {}
 
 func _ready():
+	# Set a new random seed
+	randomize()
+	
+	# Set current scene
 	current_scene = get_tree().get_root().get_child(get_tree().get_root().get_child_count() - 1)
 
 func get(key):
@@ -11,12 +15,56 @@ func get(key):
 	
 func initialize():
 	# TODO Load in save data first before loading default values
-	game_data.player_direction = Vector2()
-	game_data.state = "GAME_PLAYING"
-	game_data.map = {
-		id = "overworld",
-		spawn = "game_start"
+	
+	game_data = {
+		event = {},
+		player_data = {
+			armor = 1,
+			atk = 2,
+			base = 2,
+			def = 2,
+			xp = 0,
+			xp_req = 100,
+			hp = 5,
+			level = 1
+		},
+		player_direction = Vector2(),
+		player_position = Vector2(),
+		viewport = Vector2(),
+		state = "GAME_PLAYING",
+		map = {
+			id = "overworld",
+			spawn = "game_start"
+		}
 	}
+
+func load_save():
+	pass
+	
+func prepare_save():
+	var save_dict = {
+		map = game_data.map.id,
+		player_direction = {
+			x = game_data.player_direction.x,
+			y = game_data.player_direction.y
+		},
+		player_position = {
+			x = game_data.player_position.x,
+			y = game_data.player_position.y
+		},
+		state = game_data.state,
+		viewport = {
+			x = game_data.viewport.x,
+			y = game_data.viewport.y
+		}
+	}
+	return save_dict
+	
+func save_game():
+	var savegame = File.new()
+	savegame.open("user://unplanned_save.save", File.WRITE)
+	savegame.store_line(prepare_save().to_json())
+	savegame.close()
 	
 func set_scene(scene):
 	var new_scene = ResourceLoader.load(scene)

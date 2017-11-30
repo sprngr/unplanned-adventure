@@ -21,21 +21,30 @@ onready var Player = preload("res://player/player.tscn")
 var player
 var player_world_pos
 
+# Random Events
+var event
+
 # Map Info
 var map
 var map_warps = {}
-var tiles_impassable
+var tileset
+var tiles_passable
+var tiles_encounterable
 
 func _ready():
 	initialize()
+	spawn_player()
+	update_camera()
 	globals.store("state", "GAME_IS_PLAYING")
 
 func is_cell_passable(pos, direction):
 	var grid_pos = world_to_map(pos) + direction
 	var tile = map.get_cellv(grid_pos)
+	var target_tile = tileset.tile_get_name(tile)
 	
 	# Check if cell is passable (grass, dirt, etc)
-	var is_passable = !tiles_impassable.has(tile)
+	var is_passable = tiles_passable.has(target_tile)
+	var is_encounterable = tiles_encounterable.has(target_tile)
 
 	# If yes, check to see if anything is currently at that pos
 	if is_passable:
@@ -43,20 +52,39 @@ func is_cell_passable(pos, direction):
 			if grid_pos.y < grid_size.y and grid_pos.y >= 0:
 				if grid_warps[grid_pos.x][grid_pos.y] != null and grid_warps[grid_pos.x][grid_pos.y] != 0:
 					warp_player(grid_warps[grid_pos.x][grid_pos.y].key)
-					return true
+					return false
 					
-				if grid[grid_pos.x][grid_pos.y] == null:
+				if grid_warps[grid_pos.x][grid_pos.y] == null && grid[grid_pos.x][grid_pos.y] == null:
+					if is_encounterable:
+						var random = randi() % 100
+						if random <= 10:
+							random_encounter()
+							return false
 					return true
-		return false
-	else:
-		return false
 
+	return false
+
+func random_encounter():
+	var encounters = map.encounters
+	var new_event = encounters[randi() % encounters.size()]
+	globals.store("event", new_event)
+	
+	# Load in event
+	var scene = ResourceLoader.load("res://events/event.tscn")
+	event = scene.instance()
+	event.set_pos(globals.get("viewport"))
+	
+	# Add to scene
+	add_child(event)
+	
+	globals.store("state", "GAME_EVENT")
+	
 func warp_player(key):
 	var target_scene = map.warp_tiles[key]
 	# Set game state to "player is warping"
 	# This should kill all momentum until screen has loaded
 	# We don't want to update this until they press forward
-	globals.store("state", "WARPING")
+	globals.store("state", "GAME_WARPING")
 	
 	# Load in new map data pulled from child scene
 	mapManager.load_map(target_scene)
@@ -72,6 +100,9 @@ func initialize():
 	# Add to scene
 	add_child(map)
 	
+	# Store tileset
+	tileset = map.get_tileset()
+	
 	# Populate needed values from child map
 	grid_size = map.GRID_SIZE
 	
@@ -85,7 +116,8 @@ func initialize():
 	# Clone grid for grid_warps array
 	grid_warps = [] + grid
 			
-	tiles_impassable = map.IMPASSABLE
+	tiles_passable = map.passable
+	tiles_encounterable = map.encounterable
 	
 	var warp_tiles = map.warp_tiles
 	for key in warp_tiles:
@@ -103,7 +135,7 @@ func initialize():
 				key = key
 			}
 	
-	spawn_player()
+	
 
 func spawn_player():
 	var spawn_pos = mapManager.get_spawn()
@@ -111,7 +143,6 @@ func spawn_player():
 	player_world_pos = map_to_world(map_warps[spawn_pos].coords) + half_tile_size
 	player.set_pos(player_world_pos)
 	add_child(player)
-	update_camera()
 	
 func update_child_pos(child_node):
 	var grid_pos = world_to_map(child_node.get_pos())
@@ -144,4 +175,5 @@ func update_camera():
 		player_world_pos = new_player_grid_pos
 		transform = get_viewport().get_canvas_transform()
 		transform[2] = -player_world_pos * window_size
+		globals.store("viewport", transform[2].abs())
 		get_viewport().set_canvas_transform(transform)
