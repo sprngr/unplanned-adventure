@@ -38,6 +38,7 @@ var enemy_stamina_max
 var enemy_stamina
 
 var combat_won = false
+var run_failed = false
 
 # Sets up logic around displaying the battle text
 func _ready():
@@ -68,27 +69,33 @@ func _input(evt):
 			
 	if (battle_state == BATTLE_STATES.INTRO || battle_state == BATTLE_STATES.TEXT) && is_text_complete():
 		if evt.is_action_pressed("ui_accept"):
-			if (battle_state == BATTLE_STATES.TEXT):
-				combat_step = (combat_step + 1) % 2
-			
-			if !is_combat_over():
-				battle_state = BATTLE_STATES.COMBAT
-				menu_action.set_bbcode(get_menu_action_text())
-				select_menu_item(menu_action)
+			if run_failed:
+				run_failed()
 			else:
-				battle_state = BATTLE_STATES.END
-				end_combat()
+				if (battle_state == BATTLE_STATES.TEXT):
+					combat_step = (combat_step + 1) % 2
+				
+				if !is_combat_over():
+					battle_state = BATTLE_STATES.COMBAT
+					menu_action.set_bbcode(get_menu_action_text())
+					select_menu_item(menu_action)
+				else:
+					battle_state = BATTLE_STATES.END
+					end_combat()
 				
 	if battle_state == BATTLE_STATES.END && is_text_complete():
 		if evt.is_action_pressed("ui_accept"):
 			if (combat_won):
 				# Clear event data, lets move on
-				globals.store("event", {})
-				globals.store("state", "GAME_IS_PLAYING")
-				event.queue_free()
+				leave_event()
 			else:
 				get_tree().quit()
-			
+
+func leave_event():
+	globals.store("event", {})
+	globals.store("state", "GAME_IS_PLAYING")
+	event.queue_free()
+
 func end_combat():
 	# Determine who just lost
 	if enemy_stamina <= 0:
@@ -107,7 +114,7 @@ func run_menu_item(menu_item):
 		combat_phase()
 	# Run "run" die roll: exit on success; enemy action on failure.
 	elif menu_item == menu_run:
-		return false
+		run_phase()
 
 func combat_phase():
 	# Determine who is doing what
@@ -134,6 +141,41 @@ func combat_phase():
 	else:
 		attacker_label = "Enemy " + enemy_stats.name
 		player_stamina -= damage
+	
+	# Update labels
+	update_labels()
+	
+	var display_text
+	if (damage == 0):
+		display_text = "missed!"
+	else: 
+		display_text = "hit for " + String(damage) + " damage!"
+	
+	# Run display text
+	set_dialogue(attacker_label + " " + display_text)
+
+func run_phase():
+	var run_attempt = randi() % 100 + 1
+	if run_attempt >= enemy_stats.run:
+		combat_won = true
+		battle_state = BATTLE_STATES.END
+		set_dialogue("Managed to get away safely.")
+	else:
+		if combat_step == COMBAT_STATE.DEF:
+			run_failed = true
+		set_dialogue("Attempt to run failed...")
+
+func run_failed():
+	run_failed = false
+	var attack_result = roll_attack(enemy_stats)
+	var defense_result = 0
+	
+	# Do Math
+	var damage = abs(attack_result - defense_result)
+	var attacker_label
+	
+	attacker_label = "Enemy " + enemy_stats.name
+	player_stamina -= damage
 	
 	# Update labels
 	update_labels()
