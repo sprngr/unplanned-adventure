@@ -37,6 +37,8 @@ var enemy_stats
 var enemy_stamina_max
 var enemy_stamina
 
+var combat_won = false
+
 # Sets up logic around displaying the battle text
 func _ready():
 	event = get_parent()
@@ -79,20 +81,24 @@ func _input(evt):
 				
 	if battle_state == BATTLE_STATES.END && is_text_complete():
 		if evt.is_action_pressed("ui_accept"):
-			# Clear event data, lets move on
-			globals.store("event", {})
-			globals.store("state", "GAME_IS_PLAYING")
-			event.queue_free()
+			if (combat_won):
+				# Clear event data, lets move on
+				globals.store("event", {})
+				globals.store("state", "GAME_IS_PLAYING")
+				event.queue_free()
+			else:
+				get_tree().quit()
 			
 func end_combat():
 	# Determine who just lost
 	if enemy_stamina <= 0:
 		# You won
+		combat_won = true
 		set_dialogue("*Victory fanfare plays*")
 		# Determine XP gain
 	else: 
 		# You lost
-		set_dialogue("You died")
+		set_dialogue("You died...")
 	
 func run_menu_item(menu_item):
 	# Run combat with player and enemy actions
