@@ -35,7 +35,6 @@ func _ready():
 
 func handle_event():
 	event_data.info = globals.get("event")
-	print(event_data)
 
 	if event_data.info.type == "battle":
 		event_state = EVENT_TYPES.BATTLE

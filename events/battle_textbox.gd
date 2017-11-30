@@ -1,6 +1,7 @@
 extends Patch9Frame
 
 enum BATTLE_STATES {
+	INTRO,
 	TEXT,
 	COMBAT,
 	END
@@ -15,7 +16,7 @@ var event
 var event_info
 var event_entity
 
-var battle_state = BATTLE_STATES.TEXT
+var battle_state = BATTLE_STATES.INTRO
 var combat_step = COMBAT_STATE.ATK
 
 onready var battle_dialogue = get_node("battle_dialogue")
@@ -26,15 +27,19 @@ onready var menu_run = get_node("battle_menu/battle_run")
 onready var menu_arr = [menu_action, menu_run]
 var cursor_pos = 0
 
-onready var player_stats = get_node("battle_menu/player_stats")
-onready var enemy_stats = get_node("battle_menu/enemy_stats")
+onready var player_label = get_node("battle_menu/player_stats")
+var player_stats
+var player_stamina_max
+var player_stamina
 
-onready var text_timer = get_node("text_timer")
+onready var enemy_label = get_node("battle_menu/enemy_stats")
+var enemy_stats
+var enemy_stamina_max
+var enemy_stamina
 
 # Sets up logic around displaying the battle text
 func _ready():
 	event = get_parent()
-	
 	set_process(true)
 	set_process_input(true)
 	
@@ -42,29 +47,106 @@ func _process(delta):
 	if battle_state == BATTLE_STATES.COMBAT:
 		battle_dialogue.hide()
 		battle_menu.show()
-	elif battle_state == BATTLE_STATES.TEXT || battle_state == BATTLE_STATES.END:
+	elif battle_state == BATTLE_STATES.INTRO || battle_state == BATTLE_STATES.TEXT || battle_state == BATTLE_STATES.END:
 		battle_dialogue.show()
 		battle_menu.hide()
 	
 func _input(evt):
-	if battle_state == BATTLE_STATES.TEXT && is_text_complete():
-		if evt.is_action_pressed("ui_accept"):
-			battle_state = BATTLE_STATES.COMBAT
-			combat_step = combat_step % 2 == 0 if COMBAT_STATE.ATK else COMBAT_STATE.DEF
-		
 	if battle_state == BATTLE_STATES.COMBAT:
+		# Move cursor for selecting purposes
 		if evt.is_action_pressed("move_left") || evt.is_action_pressed("move_right"):
 			cursor_pos = (cursor_pos + 1) % menu_arr.size()
 			select_menu_item(menu_arr[cursor_pos])
+		
+		# Accept pressed > select appropriate action
+		if evt.is_action_pressed("ui_accept"):
+			# Action - Atk / Def phase
+			# Run - Roll run die, display text or run enemy action
+			run_menu_item(menu_arr[cursor_pos])
 			
-	# Accept pressed > select appropriate action
+	if (battle_state == BATTLE_STATES.INTRO || battle_state == BATTLE_STATES.TEXT) && is_text_complete():
+		if evt.is_action_pressed("ui_accept"):
+			if (battle_state == BATTLE_STATES.TEXT):
+				combat_step = (combat_step + 1) % 2
+			
+			battle_state = BATTLE_STATES.COMBAT
+			menu_action.set_bbcode(get_menu_action_text())
+			select_menu_item(menu_action)
+			
+
+func run_menu_item(menu_item):
+	# Run combat with player and enemy actions
+	# Math time!
+	if menu_item == menu_action:
+		combat_phase()
+	# Run "run" die roll: exit on success; enemy action on failure.
+	elif menu_item == menu_run:
+		return false
+
+func combat_phase():
+	# Determine who is doing what
+	var attacker
+	var defender
 	
-	# Action - Atk / Def phase
+	if (combat_step == COMBAT_STATE.ATK):
+		attacker = player_stats
+		defender = enemy_stats
+	else:
+		attacker = enemy_stats
+		defender = player_stats
 	
-	# run 
-		# Roll run die, display text
-		#	globals.store("state", "GAME_IS_PLAYING")
-		#	event.queue_free()
+	var attack_result = roll_attack(attacker)
+	var defense_result = roll_defense(defender)
+	
+	# Do Math
+	var damage = abs(attack_result - defense_result)
+	var attacker_label
+	
+	if (combat_step == COMBAT_STATE.ATK):
+		attacker_label = "Hero"
+		enemy_stamina -= damage
+	else:
+		attacker_label = "Enemy " + enemy_stats.name
+		player_stamina -= damage
+	
+	# Update labels
+	update_labels()
+	
+	# Run display text
+	set_dialogue(attacker_label + " hit for " + String(damage) + " damage!")
+
+func check_combat():
+	return enemy_stamina <= 0 || player_stamina <= 0
+	
+func roll_attack(stats):
+	var total_rolls = int(stats.base + (stats.level * stats.atk))
+	var total_damage = 0 
+	
+	for i in range(total_rolls):
+		var roll = roll_d6()
+		if (roll >= 3): 
+			total_damage += 1
+			
+		if (roll == 6):
+			var roll = roll_d6()
+			if (roll >= 3): 
+				total_damage += 1
+	
+	return total_damage
+
+func roll_defense(stats):
+	var total_rolls = int(stats.base + (stats.level * stats.def))
+	var total_defense = 0
+	
+	for i in range(total_rolls):
+		var roll = roll_d6()
+		if (roll >= 3): 
+			total_defense += 1
+			
+	return total_defense + stats.armor
+	
+func roll_d6():
+	return randi() % 5
 	
 func setup():
 	# Load all data about combat
@@ -75,21 +157,26 @@ func setup():
 	
 	# Get Enemy data and store it
 	enemy_stats = event.event_data.entity
+	enemy_stats['name'] = event_info.entity
 	enemy_stats['level'] = event_info.level
-	
-	# Set battle state to TEXT
-	set_dialogue("A wild " + event_info.entity + " attacked!")
 	
 	# Prepare combat menu
 	prepare_combat()
+	
+	# Set battle state to TEXT
+	set_dialogue("An enemy " + enemy_stats.name + " attacked!")
 	
 func _on_text_timer_timeout():
 	if !is_text_complete():
 		battle_dialogue.set_visible_characters(battle_dialogue.get_visible_characters() + 1)
 	
 func set_dialogue(text):
-    battle_dialogue.set_bbcode(text)
-    battle_dialogue.set_visible_characters(0)
+	if (battle_state != BATTLE_STATES.INTRO):
+		battle_state = BATTLE_STATES.TEXT
+	
+	print("battle?",battle_state)
+	battle_dialogue.set_bbcode(text)
+	battle_dialogue.set_visible_characters(0)
 
 func is_text_complete():
 	return battle_dialogue.get_text().length() == battle_dialogue.get_visible_characters()
@@ -97,14 +184,22 @@ func is_text_complete():
 func prepare_combat():
 	# Set combat menu values
 	cursor_pos = 0
-	print(get_menu_action_text())
 	menu_action.set_bbcode(get_menu_action_text())
-	
 	select_menu_item(menu_action)
 	
 	# Set player stats
+	player_stamina_max = player_stats.hp + (player_stats.hp * player_stats.base * player_stats.level)
+	player_stamina = player_stamina_max
 	
 	# Set enemy stats
+	enemy_stamina_max = enemy_stats.hp + (enemy_stats.hp * enemy_stats.base * enemy_stats.level)
+	enemy_stamina = enemy_stamina_max
+	
+	update_labels()
+
+func update_labels():
+	player_label.set_bbcode("Hero " + String(player_stamina) + "/" + String(player_stamina_max))
+	enemy_label.set_bbcode( enemy_stats.name + " " + String(enemy_stamina) + "/" + String(enemy_stamina_max))
 	
 func get_menu_action_text():
 	if (combat_step == COMBAT_STATE.ATK): 

@@ -19,11 +19,12 @@ func initialize():
 	game_data = {
 		event = {},
 		player_data = {
-			armor = 0,
-			atk = 1,
-			base = 0,
-			def = 0,
+			armor = 1,
+			atk = 2,
+			base = 2,
+			def = 2,
 			xp = 0,
+			xp_req = 100,
 			hp = 5,
 			level = 1
 		},
