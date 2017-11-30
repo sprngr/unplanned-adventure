@@ -21,11 +21,13 @@ var combat_step = COMBAT_STATE.ATK
 onready var battle_dialogue = get_node("battle_dialogue")
 
 onready var battle_menu = get_node("battle_menu")
-onready var menu_action = get_node("battle_action")
-onready var menu_run = get_node("battle_run")
+onready var menu_action = get_node("battle_menu/battle_action")
+onready var menu_run = get_node("battle_menu/battle_run")
+onready var menu_arr = [menu_action, menu_run]
+var cursor_pos = 0
 
-onready var player_stats = get_node("player_stats")
-onready var enemy_stats = get_node("enemy_stats")
+onready var player_stats = get_node("battle_menu/player_stats")
+onready var enemy_stats = get_node("battle_menu/enemy_stats")
 
 onready var text_timer = get_node("text_timer")
 
@@ -50,7 +52,17 @@ func _input(evt):
 			battle_state = BATTLE_STATES.COMBAT
 			combat_step = combat_step % 2 == 0 if COMBAT_STATE.ATK else COMBAT_STATE.DEF
 		
-		#
+	if battle_state == BATTLE_STATES.COMBAT:
+		if evt.is_action_pressed("move_left") || evt.is_action_pressed("move_right"):
+			cursor_pos = (cursor_pos + 1) % menu_arr.size()
+			select_menu_item(menu_arr[cursor_pos])
+			
+	# Accept pressed > select appropriate action
+	
+	# Action - Atk / Def phase
+	
+	# run 
+		# Roll run die, display text
 		#	globals.store("state", "GAME_IS_PLAYING")
 		#	event.queue_free()
 	
@@ -68,8 +80,8 @@ func setup():
 	# Set battle state to TEXT
 	set_dialogue("A wild " + event_info.entity + " attacked!")
 	
-	# set battle state to ATTACK
-	
+	# Prepare combat menu
+	prepare_combat()
 	
 func _on_text_timer_timeout():
 	if !is_text_complete():
@@ -81,3 +93,37 @@ func set_dialogue(text):
 
 func is_text_complete():
 	return battle_dialogue.get_text().length() == battle_dialogue.get_visible_characters()
+	
+func prepare_combat():
+	# Set combat menu values
+	cursor_pos = 0
+	print(get_menu_action_text())
+	menu_action.set_bbcode(get_menu_action_text())
+	
+	select_menu_item(menu_action)
+	
+	# Set player stats
+	
+	# Set enemy stats
+	
+func get_menu_action_text():
+	if (combat_step == COMBAT_STATE.ATK): 
+		return "Attack" 
+	else: 
+		return "Defend"
+	
+func select_menu_item(menu_item):
+	var text = menu_item.get_text()
+	
+	menu_item.clear()
+	menu_item.append_bbcode("[color=#000000]" + text + "[/color]")
+	menu_item.pop()
+	
+	for i in range(menu_arr.size()):
+		if i != cursor_pos:
+			var text = menu_arr[i].get_text()
+			
+			menu_arr[i].clear()
+			menu_arr[i].append_bbcode("[color=#a5a5a5]" + text + "[/color]")
+			menu_arr[i].pop()
+	
