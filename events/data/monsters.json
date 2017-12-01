@@ -1,10 +1,19 @@
 {
+    "bat": {
+        "armor": 0,
+        "atk": 1,
+        "base": 0,
+        "def": 0,
+        "xp": 1,
+        "hp": 2,
+        "run": 10
+    },
     "goblin": {
         "armor": 0,
         "atk": 1,
         "base": 1,
         "def": 0,
-        "xp": 1,
+        "xp": 2,
         "hp": 3,
         "run": 25
     },
@@ -16,5 +25,23 @@
         "xp": 1,
         "hp": 5,
         "run": 1
+    },
+    "red slime": {
+        "armor": 1,
+        "atk": 1,
+        "base": 1,
+        "def": 1,
+        "xp": 3,
+        "hp": 8,
+        "run": 30
+    },
+    "mimic": {
+        "armor": 5,
+        "atk": 3,
+        "base": 2,
+        "def": 3,
+        "xp": 10,
+        "hp": 10,
+        "run": 0
     }
 }

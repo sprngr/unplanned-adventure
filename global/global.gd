@@ -19,7 +19,7 @@ func initialize():
 	game_data = {
 		event = {},
 		xp = 0,
-		xp_req = 20,
+		xp_req = 50,
 		level = 1,
 		player_data = {
 			armor = 1,

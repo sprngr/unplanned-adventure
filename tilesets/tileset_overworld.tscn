@@ -25,6 +25,55 @@ texture = ExtResource( 1 )
 region = true
 region_rect = Rect2( 48, 0, 16, 16 )
 
+[node name="mountain-tl" type="Sprite" parent="."]
+
+transform/pos = Vector2( 112, 16 )
+texture = ExtResource( 1 )
+region = true
+region_rect = Rect2( 80, 16, 16, 16 )
+
+[node name="mountain-t" type="Sprite" parent="."]
+
+transform/pos = Vector2( 144, 16 )
+texture = ExtResource( 1 )
+region = true
+region_rect = Rect2( 96, 0, 16, 16 )
+
+[node name="mountain-tr" type="Sprite" parent="."]
+
+transform/pos = Vector2( 176, 16 )
+texture = ExtResource( 1 )
+region = true
+region_rect = Rect2( 112, 16, 16, 16 )
+
+[node name="mountain" type="Sprite" parent="."]
+
+transform/pos = Vector2( 208, 16 )
+texture = ExtResource( 1 )
+region = true
+region_rect = Rect2( 96, 16, 16, 16 )
+
+[node name="mountain-bl" type="Sprite" parent="."]
+
+transform/pos = Vector2( 240, 16 )
+texture = ExtResource( 1 )
+region = true
+region_rect = Rect2( 80, 32, 16, 16 )
+
+[node name="mountain-b" type="Sprite" parent="."]
+
+transform/pos = Vector2( 272, 16 )
+texture = ExtResource( 1 )
+region = true
+region_rect = Rect2( 96, 32, 16, 16 )
+
+[node name="mountain-br" type="Sprite" parent="."]
+
+transform/pos = Vector2( 304, 16 )
+texture = ExtResource( 1 )
+region = true
+region_rect = Rect2( 112, 32, 16, 16 )
+
 [node name="water" type="Sprite" parent="."]
 
 transform/pos = Vector2( 48, 80 )
@@ -115,5 +164,124 @@ transform/pos = Vector2( 144, 80 )
 texture = ExtResource( 1 )
 region = true
 region_rect = Rect2( 64, 32, 16, 16 )
+
+[node name="cave-tl" type="Sprite" parent="."]
+
+transform/pos = Vector2( 176, 48 )
+texture = ExtResource( 1 )
+region = true
+region_rect = Rect2( 0, 64, 16, 16 )
+
+[node name="cave-tm" type="Sprite" parent="."]
+
+transform/pos = Vector2( 208, 48 )
+texture = ExtResource( 1 )
+region = true
+region_rect = Rect2( 16, 64, 16, 16 )
+
+[node name="cave-tr" type="Sprite" parent="."]
+
+transform/pos = Vector2( 240, 48 )
+texture = ExtResource( 1 )
+region = true
+region_rect = Rect2( 32, 64, 16, 16 )
+
+[node name="cave-ml" type="Sprite" parent="."]
+
+transform/pos = Vector2( 176, 80 )
+texture = ExtResource( 1 )
+region = true
+region_rect = Rect2( 0, 80, 16, 16 )
+
+[node name="cave-mr" type="Sprite" parent="."]
+
+transform/pos = Vector2( 240, 80 )
+texture = ExtResource( 1 )
+region = true
+region_rect = Rect2( 32, 80, 16, 16 )
+
+[node name="cave-bl" type="Sprite" parent="."]
+
+transform/pos = Vector2( 176, 112 )
+texture = ExtResource( 1 )
+region = true
+region_rect = Rect2( 0, 96, 16, 16 )
+
+[node name="cave-bm" type="Sprite" parent="."]
+
+transform/pos = Vector2( 208, 112 )
+texture = ExtResource( 1 )
+region = true
+region_rect = Rect2( 16, 96, 16, 16 )
+
+[node name="cave-br" type="Sprite" parent="."]
+
+transform/pos = Vector2( 240, 112 )
+texture = ExtResource( 1 )
+region = true
+region_rect = Rect2( 32, 96, 16, 16 )
+
+[node name="cave-itl" type="Sprite" parent="."]
+
+transform/pos = Vector2( 272, 48 )
+texture = ExtResource( 1 )
+region = true
+region_rect = Rect2( 48, 64, 16, 16 )
+
+[node name="cave-itr" type="Sprite" parent="."]
+
+transform/pos = Vector2( 304, 48 )
+texture = ExtResource( 1 )
+region = true
+region_rect = Rect2( 64, 64, 16, 16 )
+
+[node name="cave-ibl" type="Sprite" parent="."]
+
+transform/pos = Vector2( 272, 80 )
+texture = ExtResource( 1 )
+region = true
+region_rect = Rect2( 48, 80, 16, 16 )
+
+[node name="cave-ibr" type="Sprite" parent="."]
+
+transform/pos = Vector2( 304, 80 )
+texture = ExtResource( 1 )
+region = true
+region_rect = Rect2( 64, 80, 16, 16 )
+
+[node name="cave-floor" type="Sprite" parent="."]
+
+transform/pos = Vector2( 272, 112 )
+texture = ExtResource( 1 )
+region = true
+region_rect = Rect2( 48, 96, 16, 16 )
+
+[node name="cave-stairs" type="Sprite" parent="."]
+
+transform/pos = Vector2( 304, 112 )
+texture = ExtResource( 1 )
+region = true
+region_rect = Rect2( 64, 96, 16, 16 )
+
+[node name="cave-exit-l" type="Sprite" parent="."]
+
+transform/pos = Vector2( 176, 144 )
+texture = ExtResource( 1 )
+region = true
+region_rect = Rect2( 0, 112, 16, 16 )
+
+[node name="cave-exit-m" type="Sprite" parent="."]
+
+transform/pos = Vector2( 208, 144 )
+texture = ExtResource( 1 )
+region = true
+region_rect = Rect2( 16, 112, 16, 16 )
+
+[node name="cave-exit-r" type="Sprite" parent="."]
+
+transform/pos = Vector2( 240, 144 )
+texture = ExtResource( 1 )
+region = true
+region_rect = Rect2( 32, 112, 16, 16 )
 
 

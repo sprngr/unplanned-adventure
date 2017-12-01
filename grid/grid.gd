@@ -57,7 +57,7 @@ func is_cell_passable(pos, direction):
 				if grid_warps[grid_pos.x][grid_pos.y] == null && grid[grid_pos.x][grid_pos.y] == null:
 					if is_encounterable:
 						var random = randi() % 100
-						if random <= 10:
+						if random <= 5:
 							random_encounter()
 							return false
 					return true
@@ -93,6 +93,8 @@ func warp_player(key):
 # initialize
 # This sets up all the data based on the current game state
 func initialize():
+	randomize()
+	
 	# Load in map
 	var scene = ResourceLoader.load(mapManager.get_map_resource())
 	map = scene.instance()

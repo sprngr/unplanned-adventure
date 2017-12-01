@@ -18,6 +18,11 @@ var warp_tiles = {
 		coords = Vector2(33,29),
 		link = "door_0",
 		target = "dungeon_0"
+	},
+	dunegon_1 = {
+		coords = Vector2(31,19),
+		link = "door_1",
+		target = "dungeon_2"
 	}
 }
 
