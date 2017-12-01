@@ -18,15 +18,15 @@ func initialize():
 
 	game_data = {
 		event = {},
+		xp = 0,
+		xp_req = 20,
+		level = 1,
 		player_data = {
 			armor = 1,
 			atk = 2,
 			base = 2,
 			def = 2,
-			xp = 0,
-			xp_req = 100,
-			hp = 5,
-			level = 1
+			hp = 5
 		},
 		player_direction = Vector2(),
 		player_position = Vector2(),

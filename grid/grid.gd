@@ -65,6 +65,7 @@ func is_cell_passable(pos, direction):
 	return false
 
 func random_encounter():
+	randomize()
 	var encounters = map.encounters
 	var new_event = encounters[randi() % encounters.size()]
 	globals.store("event", new_event)

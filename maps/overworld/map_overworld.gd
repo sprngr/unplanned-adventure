@@ -10,20 +10,26 @@ var encounterable = ["grass"]
 # Warp Info
 var warp_tiles = {
 	game_start = {
-		coords = Vector2(15,9),
+		coords = Vector2(33,34),
 		link = null,
 		target = null
 	},
-	town_0 = {
-		coords = Vector2(27,6),
-		link = "gate_0",
-		target = "shop"
+	dunegon_0 = {
+		coords = Vector2(33,29),
+		link = "door_0",
+		target = "dungeon_0"
 	}
 }
 
 var encounters = [
 	{
 		entity = "slime",
+		field = "grass",
+		level = 1,
+		type = "battle"
+	},
+	{
+		entity = "goblin",
 		field = "grass",
 		level = 1,
 		type = "battle"

@@ -1,4 +1,13 @@
 {
+    "goblin": {
+        "armor": 0,
+        "atk": 1,
+        "base": 1,
+        "def": 0,
+        "xp": 1,
+        "hp": 3,
+        "run": 25
+    },
     "slime": {
         "armor": 0,
         "atk": 1,
