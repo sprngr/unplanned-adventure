@@ -284,4 +284,18 @@ texture = ExtResource( 1 )
 region = true
 region_rect = Rect2( 32, 112, 16, 16 )
 
+[node name="mimic" type="Sprite" parent="."]
+
+transform/pos = Vector2( 16, 144 )
+texture = ExtResource( 1 )
+region = true
+region_rect = Rect2( 80, 48, 16, 16 )
+
+[node name="gold" type="Sprite" parent="."]
+
+transform/pos = Vector2( 48, 144 )
+texture = ExtResource( 1 )
+region = true
+region_rect = Rect2( 96, 48, 16, 16 )
+
 

@@ -4,7 +4,7 @@ extends TileMap
 const GRID_SIZE = Vector2(90,65)
 
 # Tile Info
-var passable = ["grass", "dirt"]
+var passable = ["grass", "dirt", "mimic", "gold"]
 var encounterable = ["grass"]
 
 # Warp Info

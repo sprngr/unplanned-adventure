@@ -45,6 +45,10 @@ func is_cell_passable(pos, direction):
 	# Check if cell is passable (grass, dirt, etc)
 	var is_passable = tiles_passable.has(target_tile)
 	var is_encounterable = tiles_encounterable.has(target_tile)
+	
+	if (target_tile == "gold" || target_tile == "mimic"):
+		end_game()
+		return false
 
 	# If yes, check to see if anything is currently at that pos
 	if is_passable:
@@ -63,6 +67,26 @@ func is_cell_passable(pos, direction):
 					return true
 
 	return false
+	
+func end_game():
+	var new_event = {
+		entity = "mimic",
+		field = "grass",
+		level = 5,
+		type = "battle"
+	}
+	
+	globals.store("event", new_event)
+	
+	# Load in event
+	var scene = ResourceLoader.load("res://events/event.tscn")
+	event = scene.instance()
+	event.set_pos(globals.get("viewport"))
+	
+	# Add to scene
+	add_child(event)
+	
+	globals.store("state", "GAME_EVENT")
 
 func random_encounter():
 	randomize()
