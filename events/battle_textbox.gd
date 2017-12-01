@@ -126,7 +126,8 @@ func end_combat():
 			var new_level = player_stats.level + 1
 			globals.store("level", new_level)
 			globals.store("xp_req", xp_req + (xp_req * 0.1))
-			message += " Level" + String(new_level) + " reached!"
+			globals.store("xp", 0)
+			message += " Level " + String(new_level) + " reached!"
 
 		set_dialogue("*Victory fanfare plays* " + message)
 	else:
