@@ -1,301 +1,300 @@
-[gd_scene load_steps=2 format=1]
+[gd_scene load_steps=43 format=2]
 
 [ext_resource path="res://assets/tilesets/overworld.png" type="Texture" id=1]
 
 [node name="tileset_overworld" type="Node2D"]
 
+
 [node name="grass" type="Sprite" parent="."]
 
-transform/pos = Vector2( 16, 16 )
+position = Vector2( 16, 16 )
 texture = ExtResource( 1 )
-region = true
+region_enabled = true
 region_rect = Rect2( 16, 0, 16, 16 )
 
 [node name="dirt" type="Sprite" parent="."]
 
-transform/pos = Vector2( 48, 16 )
+position = Vector2( 48, 16 )
 texture = ExtResource( 1 )
-region = true
+region_enabled = true
 region_rect = Rect2( 32, 0, 16, 16 )
 
 [node name="bush" type="Sprite" parent="."]
 
-transform/pos = Vector2( 80, 16 )
+position = Vector2( 80, 16 )
 texture = ExtResource( 1 )
-region = true
+region_enabled = true
 region_rect = Rect2( 48, 0, 16, 16 )
 
 [node name="mountain-tl" type="Sprite" parent="."]
 
-transform/pos = Vector2( 112, 16 )
+position = Vector2( 112, 16 )
 texture = ExtResource( 1 )
-region = true
+region_enabled = true
 region_rect = Rect2( 80, 16, 16, 16 )
 
 [node name="mountain-t" type="Sprite" parent="."]
 
-transform/pos = Vector2( 144, 16 )
+position = Vector2( 144, 16 )
 texture = ExtResource( 1 )
-region = true
+region_enabled = true
 region_rect = Rect2( 96, 0, 16, 16 )
 
 [node name="mountain-tr" type="Sprite" parent="."]
 
-transform/pos = Vector2( 176, 16 )
+position = Vector2( 176, 16 )
 texture = ExtResource( 1 )
-region = true
+region_enabled = true
 region_rect = Rect2( 112, 16, 16, 16 )
 
 [node name="mountain" type="Sprite" parent="."]
 
-transform/pos = Vector2( 208, 16 )
+position = Vector2( 208, 16 )
 texture = ExtResource( 1 )
-region = true
+region_enabled = true
 region_rect = Rect2( 96, 16, 16, 16 )
 
 [node name="mountain-bl" type="Sprite" parent="."]
 
-transform/pos = Vector2( 240, 16 )
+position = Vector2( 240, 16 )
 texture = ExtResource( 1 )
-region = true
+region_enabled = true
 region_rect = Rect2( 80, 32, 16, 16 )
 
 [node name="mountain-b" type="Sprite" parent="."]
 
-transform/pos = Vector2( 272, 16 )
+position = Vector2( 272, 16 )
 texture = ExtResource( 1 )
-region = true
+region_enabled = true
 region_rect = Rect2( 96, 32, 16, 16 )
 
 [node name="mountain-br" type="Sprite" parent="."]
 
-transform/pos = Vector2( 304, 16 )
+position = Vector2( 304, 16 )
 texture = ExtResource( 1 )
-region = true
+region_enabled = true
 region_rect = Rect2( 112, 32, 16, 16 )
 
 [node name="water" type="Sprite" parent="."]
 
-transform/pos = Vector2( 48, 80 )
+position = Vector2( 48, 80 )
 texture = ExtResource( 1 )
-region = true
+region_enabled = true
 region_rect = Rect2( 16, 32, 16, 16 )
 
 [node name="coast-tl" type="Sprite" parent="."]
 
-transform/pos = Vector2( 16, 48 )
+position = Vector2( 16, 48 )
 texture = ExtResource( 1 )
-region = true
+region_enabled = true
 region_rect = Rect2( 0, 16, 16, 16 )
 
 [node name="coast-tm" type="Sprite" parent="."]
 
-transform/pos = Vector2( 48, 48 )
+position = Vector2( 48, 48 )
 texture = ExtResource( 1 )
-region = true
+region_enabled = true
 region_rect = Rect2( 16, 16, 16, 16 )
 
 [node name="coast-tr" type="Sprite" parent="."]
 
-transform/pos = Vector2( 80, 48 )
+position = Vector2( 80, 48 )
 texture = ExtResource( 1 )
-region = true
+region_enabled = true
 region_rect = Rect2( 32, 16, 16, 16 )
 
 [node name="coast-ml" type="Sprite" parent="."]
 
-transform/pos = Vector2( 16, 80 )
+position = Vector2( 16, 80 )
 texture = ExtResource( 1 )
-region = true
+region_enabled = true
 region_rect = Rect2( 0, 32, 16, 16 )
 
 [node name="coast-mr" type="Sprite" parent="."]
 
-transform/pos = Vector2( 80, 80 )
+position = Vector2( 80, 80 )
 texture = ExtResource( 1 )
-region = true
+region_enabled = true
 region_rect = Rect2( 32, 32, 16, 16 )
 
 [node name="coast-bl" type="Sprite" parent="."]
 
-transform/pos = Vector2( 16, 112 )
+position = Vector2( 16, 112 )
 texture = ExtResource( 1 )
-region = true
+region_enabled = true
 region_rect = Rect2( 0, 48, 16, 16 )
 
 [node name="coast-bm" type="Sprite" parent="."]
 
-transform/pos = Vector2( 48, 112 )
+position = Vector2( 48, 112 )
 texture = ExtResource( 1 )
-region = true
+region_enabled = true
 region_rect = Rect2( 16, 48, 16, 16 )
 
 [node name="coast-br" type="Sprite" parent="."]
 
-transform/pos = Vector2( 80, 112 )
+position = Vector2( 80, 112 )
 texture = ExtResource( 1 )
-region = true
+region_enabled = true
 region_rect = Rect2( 32, 48, 16, 16 )
 
 [node name="coast-itl" type="Sprite" parent="."]
 
-transform/pos = Vector2( 112, 48 )
+position = Vector2( 112, 48 )
 texture = ExtResource( 1 )
-region = true
+region_enabled = true
 region_rect = Rect2( 48, 16, 16, 16 )
 
 [node name="coast-itr" type="Sprite" parent="."]
 
-transform/pos = Vector2( 144, 48 )
+position = Vector2( 144, 48 )
 texture = ExtResource( 1 )
-region = true
+region_enabled = true
 region_rect = Rect2( 64, 16, 16, 16 )
 
 [node name="coast-ibl" type="Sprite" parent="."]
 
-transform/pos = Vector2( 112, 80 )
+position = Vector2( 112, 80 )
 texture = ExtResource( 1 )
-region = true
+region_enabled = true
 region_rect = Rect2( 48, 32, 16, 16 )
 
 [node name="coast-ibr" type="Sprite" parent="."]
 
-transform/pos = Vector2( 144, 80 )
+position = Vector2( 144, 80 )
 texture = ExtResource( 1 )
-region = true
+region_enabled = true
 region_rect = Rect2( 64, 32, 16, 16 )
 
 [node name="cave-tl" type="Sprite" parent="."]
 
-transform/pos = Vector2( 176, 48 )
+position = Vector2( 176, 48 )
 texture = ExtResource( 1 )
-region = true
+region_enabled = true
 region_rect = Rect2( 0, 64, 16, 16 )
 
 [node name="cave-tm" type="Sprite" parent="."]
 
-transform/pos = Vector2( 208, 48 )
+position = Vector2( 208, 48 )
 texture = ExtResource( 1 )
-region = true
+region_enabled = true
 region_rect = Rect2( 16, 64, 16, 16 )
 
 [node name="cave-tr" type="Sprite" parent="."]
 
-transform/pos = Vector2( 240, 48 )
+position = Vector2( 240, 48 )
 texture = ExtResource( 1 )
-region = true
+region_enabled = true
 region_rect = Rect2( 32, 64, 16, 16 )
 
 [node name="cave-ml" type="Sprite" parent="."]
 
-transform/pos = Vector2( 176, 80 )
+position = Vector2( 176, 80 )
 texture = ExtResource( 1 )
-region = true
+region_enabled = true
 region_rect = Rect2( 0, 80, 16, 16 )
 
 [node name="cave-mr" type="Sprite" parent="."]
 
-transform/pos = Vector2( 240, 80 )
+position = Vector2( 240, 80 )
 texture = ExtResource( 1 )
-region = true
+region_enabled = true
 region_rect = Rect2( 32, 80, 16, 16 )
 
 [node name="cave-bl" type="Sprite" parent="."]
 
-transform/pos = Vector2( 176, 112 )
+position = Vector2( 176, 112 )
 texture = ExtResource( 1 )
-region = true
+region_enabled = true
 region_rect = Rect2( 0, 96, 16, 16 )
 
 [node name="cave-bm" type="Sprite" parent="."]
 
-transform/pos = Vector2( 208, 112 )
+position = Vector2( 208, 112 )
 texture = ExtResource( 1 )
-region = true
+region_enabled = true
 region_rect = Rect2( 16, 96, 16, 16 )
 
 [node name="cave-br" type="Sprite" parent="."]
 
-transform/pos = Vector2( 240, 112 )
+position = Vector2( 240, 112 )
 texture = ExtResource( 1 )
-region = true
+region_enabled = true
 region_rect = Rect2( 32, 96, 16, 16 )
 
 [node name="cave-itl" type="Sprite" parent="."]
 
-transform/pos = Vector2( 272, 48 )
+position = Vector2( 272, 48 )
 texture = ExtResource( 1 )
-region = true
+region_enabled = true
 region_rect = Rect2( 48, 64, 16, 16 )
 
 [node name="cave-itr" type="Sprite" parent="."]
 
-transform/pos = Vector2( 304, 48 )
+position = Vector2( 304, 48 )
 texture = ExtResource( 1 )
-region = true
+region_enabled = true
 region_rect = Rect2( 64, 64, 16, 16 )
 
 [node name="cave-ibl" type="Sprite" parent="."]
 
-transform/pos = Vector2( 272, 80 )
+position = Vector2( 272, 80 )
 texture = ExtResource( 1 )
-region = true
+region_enabled = true
 region_rect = Rect2( 48, 80, 16, 16 )
 
 [node name="cave-ibr" type="Sprite" parent="."]
 
-transform/pos = Vector2( 304, 80 )
+position = Vector2( 304, 80 )
 texture = ExtResource( 1 )
-region = true
+region_enabled = true
 region_rect = Rect2( 64, 80, 16, 16 )
 
 [node name="cave-floor" type="Sprite" parent="."]
 
-transform/pos = Vector2( 272, 112 )
+position = Vector2( 272, 112 )
 texture = ExtResource( 1 )
-region = true
+region_enabled = true
 region_rect = Rect2( 48, 96, 16, 16 )
 
 [node name="cave-stairs" type="Sprite" parent="."]
 
-transform/pos = Vector2( 304, 112 )
+position = Vector2( 304, 112 )
 texture = ExtResource( 1 )
-region = true
+region_enabled = true
 region_rect = Rect2( 64, 96, 16, 16 )
 
 [node name="cave-exit-l" type="Sprite" parent="."]
 
-transform/pos = Vector2( 176, 144 )
+position = Vector2( 176, 144 )
 texture = ExtResource( 1 )
-region = true
+region_enabled = true
 region_rect = Rect2( 0, 112, 16, 16 )
 
 [node name="cave-exit-m" type="Sprite" parent="."]
 
-transform/pos = Vector2( 208, 144 )
+position = Vector2( 208, 144 )
 texture = ExtResource( 1 )
-region = true
+region_enabled = true
 region_rect = Rect2( 16, 112, 16, 16 )
 
 [node name="cave-exit-r" type="Sprite" parent="."]
 
-transform/pos = Vector2( 240, 144 )
+position = Vector2( 240, 144 )
 texture = ExtResource( 1 )
-region = true
+region_enabled = true
 region_rect = Rect2( 32, 112, 16, 16 )
 
 [node name="mimic" type="Sprite" parent="."]
 
-transform/pos = Vector2( 16, 144 )
+position = Vector2( 16, 144 )
 texture = ExtResource( 1 )
-region = true
+region_enabled = true
 region_rect = Rect2( 80, 48, 16, 16 )
 
 [node name="gold" type="Sprite" parent="."]
 
-transform/pos = Vector2( 48, 144 )
+position = Vector2( 48, 144 )
 texture = ExtResource( 1 )
-region = true
+region_enabled = true
 region_rect = Rect2( 96, 48, 16, 16 )
-
-
