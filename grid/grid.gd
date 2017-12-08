@@ -7,7 +7,7 @@ enum ENTITY_TYPES {
 	ACTIONABLE
 }
 
-onready var window_size = Vector2(Globals.get("display/width"), Globals.get("display/height"))
+onready var window_size = OS.get_window_size()
 
 # Grid Info
 var tile_size = get_cell_size()
@@ -81,7 +81,7 @@ func end_game():
 	# Load in event
 	var scene = ResourceLoader.load("res://events/event.tscn")
 	event = scene.instance()
-	event.set_pos(globals.get("viewport"))
+	event.set_position(globals.get("viewport"))
 
 	# Add to scene
 	add_child(event)
@@ -97,7 +97,7 @@ func random_encounter():
 	# Load in event
 	var scene = ResourceLoader.load("res://events/event.tscn")
 	event = scene.instance()
-	event.set_pos(globals.get("viewport"))
+	event.set_position(globals.get("viewport"))
 
 	# Add to scene
 	add_child(event)
@@ -122,7 +122,7 @@ func initialize():
 	# Load in map
 	var scene = ResourceLoader.load(mapManager.get_map_resource())
 	map = scene.instance()
-	map.set_pos(Vector2(0,0))
+	map.set_position(Vector2(0,0))
 
 	# Add to scene
 	add_child(map)
@@ -168,11 +168,11 @@ func spawn_player():
 	var spawn_pos = mapManager.get_spawn()
 	player = Player.instance()
 	player_world_pos = map_to_world(map_warps[spawn_pos].coords) + half_tile_size
-	player.set_pos(player_world_pos)
+	player.set_position(player_world_pos)
 	add_child(player)
 
 func update_child_pos(child_node):
-	var grid_pos = world_to_map(child_node.get_pos())
+	var grid_pos = world_to_map(child_node.get_position())
 
 	if (grid_warps[grid_pos.x][grid_pos.y] == null or grid_warps[grid_pos.x][grid_pos.y] == 0):
 		grid[grid_pos.x][grid_pos.y] = null
@@ -188,7 +188,7 @@ func update_child_pos(child_node):
 	return target_pos
 
 func get_player_world_pos():
-	var pos = player.get_pos()
+	var pos = player.get_position()
 	var x = floor(pos.x / window_size.x)
 	var y = floor(pos.y / window_size.y)
 
@@ -196,11 +196,11 @@ func get_player_world_pos():
 
 func update_camera():
 	var new_player_grid_pos = get_player_world_pos()
-	var transform = Matrix32()
+	var new_matrix32 = [Vector2(), Vector2(), Vector2()]
 
 	if new_player_grid_pos != player_world_pos:
 		player_world_pos = new_player_grid_pos
-		transform = get_viewport().get_canvas_transform()
-		transform[2] = -player_world_pos * window_size
-		globals.store("viewport", transform[2].abs())
-		get_viewport().set_canvas_transform(transform)
+		new_matrix32 = get_viewport().get_canvas_transform()
+		new_matrix32[2] = -player_world_pos * window_size
+		globals.store("viewport", new_matrix32[2].abs())
+		get_viewport().set_canvas_transform(new_matrix32)

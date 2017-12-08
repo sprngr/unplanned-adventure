@@ -1,4 +1,4 @@
-extends Patch9Frame
+extends NinePatchRect
 
 enum BATTLE_STATES {
 	INTRO,
@@ -42,9 +42,8 @@ var run_failed = false
 
 # Sets up logic around displaying the battle text
 func _ready():
-	event = get_parent()
-	set_process(true)
 	set_process_input(true)
+	event = get_parent()
 
 func _process(delta):
 	if battle_state == BATTLE_STATES.COMBAT:

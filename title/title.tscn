@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://title/title.gd" type="Script" id=1]
 [ext_resource path="res://assets/title_screen.png" type="Texture" id=2]
-[ext_resource path="res://assets/font_32.fnt" type="BitmapFont" id=3]
 
 [node name="title" type="Node"]
 
@@ -10,45 +9,56 @@ script = ExtResource( 1 )
 
 [node name="title_card" type="TextureRect" parent="."]
 
-focus_ignore_mouse = true
-focus_stop_mouse = true
-size_flags_horizontal = 2
-size_flags_vertical = 2
-margin_left = 0.0
-margin_top = 0.0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
 margin_right = 480.0
 margin_bottom = 320.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+size_flags_horizontal = 2
+size_flags_vertical = 2
 texture = ExtResource( 2 )
 stretch_mode = 0
 
 [node name="text_continue" type="RichTextLabel" parent="."]
 
-focus_ignore_mouse = false
-focus_stop_mouse = true
-size_flags_horizontal = 2
-size_flags_vertical = 2
-margin_left = 0.0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
 margin_top = 256.0
 margin_right = 480.0
 margin_bottom = 288.0
-custom_fonts/normal_font = ExtResource( 3 )
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 0
+size_flags_horizontal = 2
+size_flags_vertical = 2
 bbcode_enabled = true
 bbcode_text = "[center]Continue[/center]"
 visible_characters = -1
 percent_visible = 1.0
+override_selected_font_color = false
 
 [node name="text_new_game" type="RichTextLabel" parent="."]
 
-focus_ignore_mouse = false
-focus_stop_mouse = true
-size_flags_horizontal = 2
-size_flags_vertical = 2
-margin_left = 0.0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
 margin_top = 224.0
 margin_right = 480.0
 margin_bottom = 256.0
-custom_fonts/normal_font = ExtResource( 3 )
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 0
+size_flags_horizontal = 2
+size_flags_vertical = 2
 bbcode_enabled = true
 bbcode_text = "[center]New Game[/center]"
 visible_characters = -1
 percent_visible = 1.0
+override_selected_font_color = false
+
+

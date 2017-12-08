@@ -1,4 +1,4 @@
-extends Patch9Frame
+extends NinePatchRect
 
 var event
 var event_info

@@ -1,44 +1,77 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=3
+
 [application]
 
-icon = "res://icon.png"
-main_scene = "res://title/title.tscn"
-name = "Unplanned Adventure"
+config/name="Unplanned Adventure"
+run/main_scene="res://title/title.tscn"
+icon="res://icon.png"
+main_scene="res://title/title.tscn"
+name="Unplanned Adventure"
 
 [autoload]
 
-globals = "*res://global/global.gd"
-mapManager = "*res://global/mapManager.gd"
+globals="*res://global/global.gd"
+mapManager="*res://global/mapManager.gd"
 
 [display]
 
-name = "Unplanned Adventure"
-stretch/aspect = "keep"
-stretch/mode = "2d"
-window/height = 320
-window/width = 480
+window/size/width=480
+window/size/height=320
+name="Unplanned Adventure"
+stretch/aspect="keep"
+stretch/mode="2d"
+window/height=320
+window/width=480
+
+[gdnative]
+
+singletons=[  ]
 
 [image_loader]
 
-filter = false
-gen_mipmaps = false
+filter=false
+gen_mipmaps=false
 
 [input]
 
-move_all = [ InputEvent(KEY,87), InputEvent(KEY,65), InputEvent(KEY,83), InputEvent(KEY,68), InputEvent(KEY,16777232), InputEvent(KEY,16777231), InputEvent(KEY,16777234), InputEvent(KEY,16777233) ]
-move_down = [ InputEvent(KEY,83), InputEvent(KEY,16777234), InputEvent(JAXIS,1,1) ]
-move_left = [ InputEvent(KEY,65), InputEvent(KEY,16777231), InputEvent(JAXIS,0,-1) ]
-move_right = [ InputEvent(KEY,68), InputEvent(KEY,16777233), InputEvent(JAXIS,0,1) ]
-move_up = [ InputEvent(KEY,87), InputEvent(KEY,16777232), InputEvent(JAXIS,1,-1) ]
-
-[physics]
-
-common/fixed_fps = 60
+move_all=[ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":87,"unicode":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":65,"unicode":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":83,"unicode":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":68,"unicode":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777232,"unicode":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777231,"unicode":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777234,"unicode":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777233,"unicode":0,"echo":false,"script":null)
+ ]
+move_down=[ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":83,"unicode":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777234,"unicode":0,"echo":false,"script":null)
+, Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":1,"axis_value":1.0,"script":null)
+ ]
+move_left=[ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":65,"unicode":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777231,"unicode":0,"echo":false,"script":null)
+, Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":0,"axis_value":-1.0,"script":null)
+ ]
+move_right=[ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":68,"unicode":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777233,"unicode":0,"echo":false,"script":null)
+, Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":0,"axis_value":1.0,"script":null)
+ ]
+move_up=[ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":87,"unicode":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777232,"unicode":0,"echo":false,"script":null)
+, Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":1,"axis_value":-1.0,"script":null)
+ ]
 
 [physics_2d]
 
-motion_fix_enabled = true
+motion_fix_enabled=true
 
 [rendering]
 
-viewport/default_clear_color = Color( 0.219608, 0.219608, 0.219608, 1 )
-
+viewport/default_clear_color=Color( 0.219608, 0.219608, 0.219608, 1 )
