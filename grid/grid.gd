@@ -1,10 +1,10 @@
 extends TileMap
 
 enum ENTITY_TYPES {
-	PLAYER,
-	WARP,
-	PICKUP,
-	ACTIONABLE
+    PLAYER,
+    WARP,
+    PICKUP,
+    ACTIONABLE
 }
 
 onready var window_size = OS.get_window_size()
@@ -14,7 +14,7 @@ var tile_size = get_cell_size()
 var half_tile_size = tile_size / 2
 var grid_size = Vector2()
 var grid = []
-var grid_warps
+var grid_warps = []
 
 # Player
 onready var Player = preload("res://player/player.tscn")
@@ -32,175 +32,174 @@ var tiles_passable
 var tiles_encounterable
 
 func _ready():
-	initialize()
-	spawn_player()
-	update_camera()
-	globals.store("state", "GAME_IS_PLAYING")
+    initialize()
+    spawn_player()
+    update_camera()
+    globals.store("state", "GAME_IS_PLAYING")
 
 func is_cell_passable(pos, direction):
-	var grid_pos = world_to_map(pos) + direction
-	var tile = map.get_cellv(grid_pos)
-	var target_tile = tileset.tile_get_name(tile)
+    var grid_pos = world_to_map(pos) + direction
+    var tile = map.get_cellv(grid_pos)
+    var target_tile = tileset.tile_get_name(tile)
 
-	# Check if cell is passable (grass, dirt, etc)
-	var is_passable = tiles_passable.has(target_tile)
-	var is_encounterable = tiles_encounterable.has(target_tile)
+    # Check if cell is passable (grass, dirt, etc)
+    var is_passable = tiles_passable.has(target_tile)
+    var is_encounterable = tiles_encounterable.has(target_tile)
 
-	if (target_tile == "gold" || target_tile == "mimic"):
-		end_game()
-		return false
+    if (target_tile == "gold" || target_tile == "mimic"):
+        end_game()
+        return false
 
-	# If yes, check to see if anything is currently at that pos
-	if is_passable:
-		if grid_pos.x < grid_size.x and grid_pos.x >= 0:
-			if grid_pos.y < grid_size.y and grid_pos.y >= 0:
-				if grid_warps[grid_pos.x][grid_pos.y] != null and grid_warps[grid_pos.x][grid_pos.y] != 0:
-					warp_player(grid_warps[grid_pos.x][grid_pos.y].key)
-					return false
+    # If yes, check to see if anything is currently at that pos
+    if is_passable:
+        if grid_pos.x < grid_size.x and grid_pos.x >= 0:
+            if grid_pos.y < grid_size.y and grid_pos.y >= 0:
+                if grid_warps[grid_pos.x][grid_pos.y] != null:
+                    warp_player(grid_warps[grid_pos.x][grid_pos.y].key)
+                    return false
 
-				if grid_warps[grid_pos.x][grid_pos.y] == null && grid[grid_pos.x][grid_pos.y] == null:
-					if is_encounterable:
-						var random = randi() % 100
-						if random <= 5:
-							random_encounter()
-							return false
-					return true
+                if grid_warps[grid_pos.x][grid_pos.y] == null:
+                    if is_encounterable:
+                        var random = randi() % 100
+                        if random <= 5:
+                            random_encounter()
+                            return false
+                    return true
 
-	return false
+    return false
 
 func end_game():
-	var new_event = {
-		entity = "mimic",
-		field = "grass",
-		level = 10,
-		type = "battle"
-	}
+    var new_event = {
+        entity = "mimic",
+        field = "grass",
+        level = 10,
+        type = "battle"
+    }
 
-	globals.store("event", new_event)
+    globals.store("event", new_event)
 
-	# Load in event
-	var scene = ResourceLoader.load("res://events/event.tscn")
-	event = scene.instance()
-	event.set_position(globals.get("viewport"))
+    # Load in event
+    var scene = ResourceLoader.load("res://events/event.tscn")
+    event = scene.instance()
+    event.set_position(globals.get("viewport"))
 
-	# Add to scene
-	add_child(event)
+    # Add to scene
+    add_child(event)
 
-	globals.store("state", "GAME_EVENT")
+    globals.store("state", "GAME_EVENT")
 
 func random_encounter():
-	randomize()
-	var encounters = map.encounters
-	var new_event = encounters[randi() % encounters.size()]
-	globals.store("event", new_event)
+    randomize()
+    var encounters = map.encounters
+    var new_event = encounters[randi() % encounters.size()]
+    globals.store("event", new_event)
 
-	# Load in event
-	var scene = ResourceLoader.load("res://events/event.tscn")
-	event = scene.instance()
-	event.set_position(globals.get("viewport"))
+    # Load in event
+    var scene = ResourceLoader.load("res://events/event.tscn")
+    event = scene.instance()
+    event.set_position(globals.get("viewport"))
 
-	# Add to scene
-	add_child(event)
+    # Add to scene
+    add_child(event)
 
-	globals.store("state", "GAME_EVENT")
+    globals.store("state", "GAME_EVENT")
 
 func warp_player(key):
-	var target_scene = map.warp_tiles[key]
-	# Set game state to "player is warping"
-	# This should kill all momentum until screen has loaded
-	# We don't want to update this until they press forward
-	globals.store("state", "GAME_WARPING")
+    var target_scene = map.warp_tiles[key]
+    # Set game state to "player is warping"
+    # This should kill all momentum until screen has loaded
+    # We don't want to update this until they press forward
+    globals.store("state", "GAME_WARPING")
 
-	# Load in new map data pulled from child scene
-	mapManager.load_map(target_scene)
+    # Load in new map data pulled from child scene
+    mapManager.load_map(target_scene)
 
 # initialize
 # This sets up all the data based on the current game state
 func initialize():
-	randomize()
+    randomize()
 
-	# Load in map
-	var scene = ResourceLoader.load(mapManager.get_map_resource())
-	map = scene.instance()
-	map.set_position(Vector2(0,0))
+    # Load in map
+    var scene = ResourceLoader.load(mapManager.get_map_resource())
+    map = scene.instance()
+    map.set_position(Vector2(0,0))
 
-	# Add to scene
-	add_child(map)
+    # Add to scene
+    add_child(map)
 
-	# Store tileset
-	tileset = map.get_tileset()
+    # Store tileset
+    tileset = map.get_tileset()
 
-	# Populate needed values from child map
-	grid_size = map.GRID_SIZE
+    # Populate needed values from child map
+    grid_size = map.GRID_SIZE
 
-	# Reset grid back to null values
-	for x in range(grid_size.x):
-		grid.append([])
+    # Reset grids back to null values
+    initialize_grid(grid)
+    initialize_grid(grid_warps)
 
-		for y in range(grid_size.y):
-			grid[x].append(null)
+    tiles_passable = map.passable
+    tiles_encounterable = map.encounterable
 
-	# Clone grid for grid_warps array
-	grid_warps = [] + grid
+    var warp_tiles = map.warp_tiles
+    for key in warp_tiles:
+        var coords = warp_tiles[key].coords
 
-	tiles_passable = map.passable
-	tiles_encounterable = map.encounterable
+        # Store a copy of the warp tiles coords by ID for reference when spawning player
+        map_warps[key] = {
+            coords = Vector2(coords.x, coords.y)
+        }
 
-	var warp_tiles = map.warp_tiles
-	for key in warp_tiles:
-		var coords = warp_tiles[key].coords
+        # Store references to map warp tiles
+        if warp_tiles[key].target != null:
+            grid_warps[coords.x][coords.y] = {
+                type = WARP,
+                key = key
+            }
 
-		# Store a copy of the warp tiles coords by ID for reference when spawning player
-		map_warps[key] = {
-			coords = Vector2(coords.x, coords.y)
-		}
+func initialize_grid(grid_array):
+    for x in range(grid_size.x):
+        grid_array.append([])
 
-		# Store references to map warp tiles
-		if warp_tiles[key].target != null:
-			grid_warps[coords.x][coords.y] = {
-				type = WARP,
-				key = key
-			}
-
-
+        for y in range(grid_size.y):
+            grid_array[x].append(null)
 
 func spawn_player():
-	var spawn_pos = mapManager.get_spawn()
-	player = Player.instance()
-	player_world_pos = map_to_world(map_warps[spawn_pos].coords) + half_tile_size
-	player.set_position(player_world_pos)
-	add_child(player)
+    var spawn_pos = mapManager.get_spawn()
+    player = Player.instance()
+    player_world_pos = map_to_world(map_warps[spawn_pos].coords) + half_tile_size
+    player.set_position(player_world_pos)
+    add_child(player)
 
 func update_child_pos(child_node):
-	var grid_pos = world_to_map(child_node.get_position())
+    var grid_pos = world_to_map(child_node.get_position())
 
-	if (grid_warps[grid_pos.x][grid_pos.y] == null or grid_warps[grid_pos.x][grid_pos.y] == 0):
-		grid[grid_pos.x][grid_pos.y] = null
+    if (grid_warps[grid_pos.x][grid_pos.y] == null):
+        grid[grid_pos.x][grid_pos.y] = null
 
-	var new_grid_pos = grid_pos + child_node.direction
-	grid[new_grid_pos.x][new_grid_pos.y] = child_node.type
+    var new_grid_pos = grid_pos + child_node.direction
+    grid[new_grid_pos.x][new_grid_pos.y] = child_node.type
 
-	var target_pos = map_to_world(new_grid_pos) + half_tile_size
+    var target_pos = map_to_world(new_grid_pos) + half_tile_size
 
-	if (child_node.type == PLAYER):
-		player_world_pos = target_pos
+    if (child_node.type == PLAYER):
+        player_world_pos = target_pos
 
-	return target_pos
+    return target_pos
 
 func get_player_world_pos():
-	var pos = player.get_position()
-	var x = floor(pos.x / window_size.x)
-	var y = floor(pos.y / window_size.y)
+    var pos = player.get_position()
+    var x = floor(pos.x / window_size.x)
+    var y = floor(pos.y / window_size.y)
 
-	return Vector2(x,y)
+    return Vector2(x,y)
 
 func update_camera():
-	var new_player_grid_pos = get_player_world_pos()
-	var new_matrix32 = [Vector2(), Vector2(), Vector2()]
+    var new_player_grid_pos = get_player_world_pos()
+    var new_matrix32 = Transform2D()
 
-	if new_player_grid_pos != player_world_pos:
-		player_world_pos = new_player_grid_pos
-		new_matrix32 = get_viewport().get_canvas_transform()
-		new_matrix32[2] = -player_world_pos * window_size
-		globals.store("viewport", new_matrix32[2].abs())
-		get_viewport().set_canvas_transform(new_matrix32)
+    if new_player_grid_pos != player_world_pos:
+        player_world_pos = new_player_grid_pos
+        new_matrix32 = get_viewport().get_canvas_transform()
+        new_matrix32[2] = -player_world_pos * window_size
+        globals.store("viewport", new_matrix32[2].abs())
+        get_viewport().set_canvas_transform(new_matrix32)

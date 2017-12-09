@@ -74,4 +74,5 @@ motion_fix_enabled=true
 
 [rendering]
 
+quality/2d/use_pixel_snap=true
 viewport/default_clear_color=Color( 0.219608, 0.219608, 0.219608, 1 )

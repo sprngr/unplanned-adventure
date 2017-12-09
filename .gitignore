@@ -1,1 +1,3 @@
-*.ase
+.DS_Store
+.import
+*.import

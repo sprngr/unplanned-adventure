@@ -1,10 +1,10 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://events/event.gd" type="Script" id=1]
 [ext_resource path="res://assets/text_frame.png" type="Texture" id=2]
 [ext_resource path="res://events/entity_frame.gd" type="Script" id=3]
 [ext_resource path="res://events/battle_textbox.gd" type="Script" id=4]
-[ext_resource path="res://assets/font_32.fnt" type="BitmapFont" id=5]
+[ext_resource path="res://assets/somepxfont.tres" type="DynamicFont" id=5]
 [ext_resource path="res://events/event_textbox.gd" type="Script" id=6]
 
 [node name="event" type="Node2D"]
@@ -13,20 +13,18 @@ script = ExtResource( 1 )
 
 [node name="entity_frame" type="NinePatchRect" parent="."]
 
-editor/display_folded = true
-visible = false
-anchor_left = 2
-anchor_top = 1
-anchor_right = 2
-anchor_bottom = 1
-focus_ignore_mouse = true
-focus_stop_mouse = true
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 112.0
+margin_right = 240.0
+margin_bottom = 112.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
 size_flags_horizontal = 2
 size_flags_vertical = 2
-margin_left = -144.0
-margin_top = -32.0
-margin_right = -272.0
-margin_bottom = -144.0
 texture = ExtResource( 2 )
 patch_margin_left = 16
 patch_margin_top = 16
@@ -36,38 +34,50 @@ script = ExtResource( 3 )
 
 [node name="entity_background" type="TextureRect" parent="entity_frame"]
 
-focus_ignore_mouse = true
-focus_stop_mouse = true
-size_flags_horizontal = 2
-size_flags_vertical = 2
-margin_left = 0.0
-margin_top = 0.0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
 margin_right = 128.0
 margin_bottom = 112.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+size_flags_horizontal = 2
+size_flags_vertical = 2
 stretch_mode = 0
 
 [node name="entity_sprite" type="TextureRect" parent="entity_frame"]
 
-focus_ignore_mouse = true
-focus_stop_mouse = true
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 41.0
+margin_top = 48.0
+margin_right = 89.0
+margin_bottom = 96.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
 size_flags_horizontal = 2
 size_flags_vertical = 2
-margin_left = 40.0
-margin_top = 48.0
-margin_right = 88.0
-margin_bottom = 96.0
 stretch_mode = 0
 
 [node name="battle_textbox" type="NinePatchRect" parent="."]
 
-focus_ignore_mouse = true
-focus_stop_mouse = true
-size_flags_horizontal = 2
-size_flags_vertical = 2
-margin_left = 0.0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
 margin_top = 240.0
 margin_right = 480.0
 margin_bottom = 320.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
 texture = ExtResource( 2 )
 patch_margin_left = 16
 patch_margin_top = 16
@@ -78,128 +88,170 @@ script = ExtResource( 4 )
 [node name="battle_dialogue" type="RichTextLabel" parent="battle_textbox"]
 
 visible = false
-focus_ignore_mouse = false
-focus_stop_mouse = true
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 240.0
+margin_bottom = 40.0
+rect_scale = Vector2( 2, 2 )
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 0
 size_flags_horizontal = 2
 size_flags_vertical = 2
-margin_left = 16.0
-margin_top = 16.0
-margin_right = 464.0
-margin_bottom = 64.0
 custom_fonts/normal_font = ExtResource( 5 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 bbcode_enabled = true
 bbcode_text = ""
 visible_characters = -1
 percent_visible = 1.0
+override_selected_font_color = false
 
 [node name="battle_menu" type="Container" parent="battle_textbox"]
 
-focus_ignore_mouse = false
-focus_stop_mouse = true
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = -240.0
+margin_bottom = -240.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
 size_flags_horizontal = 2
 size_flags_vertical = 2
-margin_left = 0.0
-margin_top = -240.0
-margin_right = 0.0
-margin_bottom = -240.0
 
 [node name="battle_action" type="RichTextLabel" parent="battle_textbox/battle_menu"]
 
-focus_ignore_mouse = false
-focus_stop_mouse = true
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 270.0
+margin_top = 280.0
+margin_right = 305.0
+margin_bottom = 295.0
+rect_scale = Vector2( 2, 2 )
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 0
 size_flags_horizontal = 2
 size_flags_vertical = 2
-margin_left = 272.0
-margin_top = 288.0
-margin_right = 368.0
-margin_bottom = 320.0
 custom_fonts/normal_font = ExtResource( 5 )
 bbcode_enabled = true
 bbcode_text = "Attack"
 visible_characters = -1
 percent_visible = 1.0
+override_selected_font_color = false
 
 [node name="battle_inventory" type="RichTextLabel" parent="battle_textbox/battle_menu"]
 
 visible = false
-focus_ignore_mouse = false
-focus_stop_mouse = true
-size_flags_horizontal = 2
-size_flags_vertical = 2
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
 margin_left = 368.0
 margin_top = 256.0
 margin_right = 464.0
 margin_bottom = 288.0
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 0
+size_flags_horizontal = 2
+size_flags_vertical = 2
 custom_fonts/normal_font = ExtResource( 5 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 bbcode_enabled = true
 bbcode_text = "Inventory"
 visible_characters = -1
 percent_visible = 1.0
+override_selected_font_color = false
 
 [node name="battle_run" type="RichTextLabel" parent="battle_textbox/battle_menu"]
 
-focus_ignore_mouse = false
-focus_stop_mouse = true
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 380.0
+margin_top = 280.0
+margin_right = 425.0
+margin_bottom = 295.0
+rect_scale = Vector2( 2, 2 )
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 0
 size_flags_horizontal = 2
 size_flags_vertical = 2
-margin_left = 368.0
-margin_top = 288.0
-margin_right = 464.0
-margin_bottom = 320.0
 custom_fonts/normal_font = ExtResource( 5 )
 bbcode_enabled = true
 bbcode_text = "Run Away"
 visible_characters = -1
 percent_visible = 1.0
+override_selected_font_color = false
 
 [node name="player_stats" type="RichTextLabel" parent="battle_textbox/battle_menu"]
 
-focus_ignore_mouse = false
-focus_stop_mouse = true
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 270.0
+margin_top = 250.0
+margin_right = 369.0
+margin_bottom = 267.0
+rect_scale = Vector2( 2, 2 )
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 0
 size_flags_horizontal = 2
 size_flags_vertical = 2
-margin_left = 272.0
-margin_top = 256.0
-margin_right = 464.0
-margin_bottom = 288.0
 custom_fonts/normal_font = ExtResource( 5 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 bbcode_enabled = true
 bbcode_text = "Hero"
 visible_characters = -1
 percent_visible = 1.0
+override_selected_font_color = false
 
 [node name="enemy_stats" type="RichTextLabel" parent="battle_textbox/battle_menu"]
 
-focus_ignore_mouse = false
-focus_stop_mouse = true
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 10.0
+margin_top = 250.0
+margin_right = 125.0
+margin_bottom = 265.0
+rect_scale = Vector2( 2, 2 )
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 0
 size_flags_horizontal = 2
 size_flags_vertical = 2
-margin_left = 16.0
-margin_top = 256.0
-margin_right = 224.0
-margin_bottom = 288.0
 custom_fonts/normal_font = ExtResource( 5 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 bbcode_enabled = true
 bbcode_text = "Enemy"
 visible_characters = -1
 percent_visible = 1.0
+override_selected_font_color = false
 
 [node name="event_textbox" type="NinePatchRect" parent="."]
 
 editor/display_folded = true
 visible = false
-focus_ignore_mouse = true
-focus_stop_mouse = true
-size_flags_horizontal = 2
-size_flags_vertical = 2
-margin_left = 0.0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
 margin_top = 240.0
 margin_right = 480.0
 margin_bottom = 320.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
 texture = ExtResource( 2 )
 patch_margin_left = 16
 patch_margin_top = 16
@@ -209,20 +261,25 @@ script = ExtResource( 6 )
 
 [node name="event_dialogue" type="RichTextLabel" parent="event_textbox"]
 
-focus_ignore_mouse = false
-focus_stop_mouse = true
-size_flags_horizontal = 2
-size_flags_vertical = 2
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
 margin_left = 16.0
 margin_top = 16.0
 margin_right = 464.0
 margin_bottom = 64.0
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 0
+size_flags_horizontal = 2
+size_flags_vertical = 2
 custom_fonts/normal_font = ExtResource( 5 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 bbcode_enabled = true
 bbcode_text = ""
 visible_characters = -1
 percent_visible = 1.0
+override_selected_font_color = false
 
 [node name="text_timer" type="Timer" parent="."]
 
@@ -231,6 +288,8 @@ wait_time = 0.05
 one_shot = false
 autostart = true
 
-[connection signal="timeout"  from="text_timer"  to="battle_textbox" method="_on_text_timer_timeout" binds=[  ]]
+[connection signal="timeout" from="text_timer" to="battle_textbox" method="_on_text_timer_timeout"]
 
-[connection signal="timeout"  from="text_timer"  to="event_textbox" method="_on_text_timer_timeout" binds=[  ]]
+[connection signal="timeout" from="text_timer" to="event_textbox" method="_on_text_timer_timeout"]
+
+
